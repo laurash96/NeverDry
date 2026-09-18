@@ -23,7 +23,7 @@ does not let anyone write it.
 |---|---|---|---|
 | English | source | source | n/a, every string originates here |
 | Italian | complete | complete | **against the running product**, 2026-09-13 |
-| German | complete | complete | file only, by @MetheLittle; not yet run |
+| German | complete | complete | **against the running product**, 2026-09-17, by @MetheLittle |
 | Spanish | complete | complete | no; both halves were written here, not by a speaker |
 
 **Read back** is the column that matters, and it is deliberately not a yes or a
@@ -53,7 +53,7 @@ translation, but only when it says so.
 The shortest path, and the one that credits you automatically:
 
 1. Copy `custom_components/never_dry/translations/en.json` to `<code>.json`,
-   using the Home Assistant language code (`de`, `fr`, `nl`, …).
+   using the Home Assistant language code (`de`, `fr`, `nl`, and so on).
 2. Translate the **values**. Leave every key untouched, and leave the
    `{placeholders}` in braces exactly as they are: they are filled in at
    runtime with names, numbers and units.
@@ -69,14 +69,14 @@ does not make the language complete, and the table above will say which half is
 missing until the other arrives.
 
 If a pull request is inconvenient, open an issue with the file attached and it
-will be added for you — but say so, because the commit will then be authored by
+will be added for you, but say so, because the commit will then be authored by
 the maintainer and your name has to be entered by hand in the contributors list.
 
 ### What to watch for while translating
 
 - **Labels are names, not explanations.** The label names the field; the
   explanation belongs in `data_description` beside it. A label long enough to be
-  a sentence is a mistake — there is a test that fails on it.
+  a sentence is a mistake: there is a test that fails on it.
 - **Never write an identifier.** Values like `estimated_flow` are internal keys
   that have their own translated labels; naming one in a message shows the user
   the machinery. There is a test for this too.
