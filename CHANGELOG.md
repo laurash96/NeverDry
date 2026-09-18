@@ -52,6 +52,16 @@ not the argument.
   [translations table](docs/translations.md) says so in its own column rather
   than leaving anyone to assume.
   ([#215](https://github.com/never-dry/NeverDry/issues/215))
+- **A valve compatibility register**, so *will my valve work* has an answer
+  written by people who own one. It records what each model reports and, more
+  usefully, what it quietly refuses: a timer valve that holds its own runtime
+  ignores the duration NeverDry asks for and stops when its own preset says so,
+  and a valve with no meter measures nothing, so what it delivered is credited
+  from the design flow rate rather than observed. Those caveats used to be
+  written and then dropped by the page generator, which is its own small lesson
+  about a table that is assembled rather than typed. First non-Zigbee row is an
+  Orbit B-hyve HT25, contributed rather than owned by the maintainer.
+  ([#223](https://github.com/never-dry/NeverDry/issues/223))
 
 ### Changed
 - **The zone card speaks the language of whoever is looking at it.** About half
@@ -65,6 +75,15 @@ not the argument.
   valve states had collapsed into one, so a valve that had never spoken and a
   valve that had stopped answering read alike. Two of those defects were in the
   English source and are fixed there too.
+- **German, read back by somebody who speaks it.** Seventy-six form strings and
+  thirty-five card labels, rewritten by @MetheLittle on their own installation. The
+  difference is the kind a dictionary cannot reach: the flow rate the zone was
+  built to deliver stopped being a compound noun nobody says out loud and became
+  *Soll-Durchflussrate*, a schedule stopped being *by clock*, and the flow guard
+  stopped claiming it could not check the valve and started saying what is true,
+  that it could not confirm the opening. First language in the project read back
+  by a native speaker rather than by its author.
+  ([#229](https://github.com/never-dry/NeverDry/issues/229))
 - **The soil probe belongs to a zone, not to the installation.** A probe measures
   one patch of soil with one planting above it; declared once for everything it
   drove zones it knows nothing about. A zone that has one measures instead of
