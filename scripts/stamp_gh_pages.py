@@ -66,6 +66,12 @@ def published_on() -> str:
         if stamped:
             return stamped
     except (OSError, subprocess.SubprocessError):
+        # Swallowed on purpose, and this is the whole of the handling: every way
+        # git can fail here - absent, refusing to run, no repository, taking too
+        # long - has the same answer, which is the fallback below. Failing the
+        # deploy instead would take the site down to protect a date, and letting
+        # the error travel would put a traceback where a footer line belongs.
+        # Nothing is logged because the value that ships is visible on the page.
         pass
     return date.today().isoformat()
 
