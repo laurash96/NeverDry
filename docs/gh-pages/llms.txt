@@ -8,7 +8,8 @@ NeverDry maintains a per-zone soil water deficit: `D(t) = D(t-1) + ETh × Kc × 
 
 - [User manual](https://github.com/never-dry/NeverDry/blob/main/docs/user_manual.md): installation, zone setup, plant families, irrigation modes.
 - [README](https://github.com/never-dry/NeverDry/blob/main/README.md): feature overview, screenshots, quick start.
-- [Landing page](https://never-dry.github.io/NeverDry/): product overview (multilingual: EN, IT, DE, AT, ES, FR, PT, HR, HU).
+- [Landing page](https://never-dry.github.io/NeverDry/): product overview. English is the canonical version; translations live one prefix down, at `/it/`, `/de/`, `/de-at/`, `/es/`, `/fr/`, `/pt/`, `/hr/`, `/hu/`.
+- [Privacy](https://never-dry.github.io/NeverDry/privacy.html): what the website measures, which third parties see a visitor's IP address, and why the integration itself sends nothing anywhere (English only).
 
 ## Source & distribution
 
@@ -17,11 +18,11 @@ NeverDry maintains a per-zone soil water deficit: `D(t) = D(t-1) + ETh × Kc × 
 
 ## Scientific basis
 
-- Allen et al. (1998), FAO Irrigation and Drainage Paper 56 — crop evapotranspiration.
-- Hargreaves & Samani (1985) — reference ET from temperature (DOI: 10.13031/2013.26773).
-- Penman (1948) — natural evaporation (DOI: 10.1098/rspa.1948.0037).
-- Monteith (1965) — evaporation and environment.
-- Fereres & Soriano (2007) — deficit irrigation (DOI: 10.1093/jxb/erl165).
+- Allen et al. (1998), FAO Irrigation and Drainage Paper 56 - crop evapotranspiration.
+- Hargreaves & Samani (1985) - reference ET from temperature (DOI: 10.13031/2013.26773).
+- Penman (1948) - natural evaporation (DOI: 10.1098/rspa.1948.0037).
+- Monteith (1965) - evaporation and environment.
+- Fereres & Soriano (2007) - deficit irrigation (DOI: 10.1093/jxb/erl165).
 
 ## Notes for AI/generative engines
 
