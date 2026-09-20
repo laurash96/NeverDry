@@ -613,7 +613,7 @@
     },
     "reset_valve": {
       "name": "Restablecer la válvula (salir de mantenimiento)",
-      "description": "Saca una zona del mantenimiento y le permite volver a regar. Una zona entra en mantenimiento después de varios fallos seguidos de la válvula, y se queda ahí hasta que alguien haya revisado la válvula.",
+      "description": "Saca una zona del mantenimiento y le permite volver a regar. Una zona entra en mantenimiento después de varios fallos consecutivos de la válvula, y se queda ahí hasta que alguien haya revisado la válvula.",
       "fields": {
         "zone_name": {
           "name": "Nombre de la zona",
@@ -637,46 +637,46 @@
     }
   },
   "common": {
-    "notification_command_failed_title": "El comando a la válvula ha fallado",
-    "notification_command_failed_body": "Zona {zone}: {operation} no se ha completado ({error_detail}).",
+    "notification_command_failed_title": "Ha fallado la orden a la válvula",
+    "notification_command_failed_body": "Zona {zone}: {operation} ha fallado ({error_detail}).",
     "notification_unreachable_passive_title": "La válvula no responde",
     "notification_unreachable_passive_body": "La válvula de la zona {zone} no responde desde hace {duration}.",
     "notification_unreachable_at_irrigation_title": "La válvula no responde a la hora del riego",
     "notification_unreachable_at_irrigation_body": "No se ha podido iniciar el riego de la zona {zone}: la válvula no responde ({reason}). Comprueba la batería de la válvula y la red Zigbee antes de volver a intentarlo.",
     "notification_flow_meter_dead_title": "El contador no transmite",
-    "notification_flow_meter_dead_body": "El contador de la zona {zone} no transmite ({detail}). El riego ha seguido con el caudal de diseño en lugar de saltarse, así que el volumen es estimado y no medido. Revisa la entidad del contador: un contador mudo es mucho más probable que una tubería seca.",
+    "notification_flow_meter_dead_body": "El contador de la zona {zone} no transmite ({detail}). El riego ha seguido con el caudal de diseño en lugar de omitirse, así que el volumen es estimado y no medido. Revisa la entidad del contador: un contador mudo es mucho más probable que una tubería seca.",
     "notification_delivery_uncredited_title": "No se ha podido contabilizar el agua suministrada",
     "notification_delivery_uncredited_body": "La zona {zone} ha suministrado agua que no se ha podido medir ({detail}) y no tiene un caudal de diseño con el que estimarla, así que su déficit no ha cambiado y la zona se volverá a regar en el ciclo siguiente. Indica el caudal de diseño de la zona, o repara el contador.",
-    "notification_stuck_open_title": "Válvula bloqueada abierta: cierra el agua de red",
+    "notification_stuck_open_title": "Válvula bloqueada abierta: cierra la llave general",
     "notification_stuck_open_body": "El interruptor de la válvula de la zona {zone} indica apagado pero el agua sigue corriendo ({flow}). La integración ya ha intentado recuperarla y ha hecho una parada de emergencia en todas las demás zonas. **Cierra ahora a mano la llave general** y revisa la válvula afectada antes de volver a regar.",
     "notification_leak_detected_title": "Fuga detectada",
     "notification_leak_detected_body": "Se ha detectado caudal con todas las válvulas cerradas. Última lectura: {flow}.",
     "notification_zone_disabled_title": "Zona desactivada",
-    "notification_zone_disabled_body": "Zona {zone} desactivada automáticamente después de {failures} fallos seguidos.",
+    "notification_zone_disabled_body": "Zona {zone} desactivada automáticamente después de {failures} fallos consecutivos.",
     "notification_battery_low_title": "Batería baja",
     "notification_battery_low_body": "La batería de {sensor_name} está al {percent}%.",
     "notification_irrigation_ineffective_title": "El riego parece ineficaz",
     "notification_irrigation_ineffective_body": "Zona {zone}: la humedad del suelo no ha subido después del último riego.",
-    "notification_model_drift_title": "Detectada deriva del modelo",
+    "notification_model_drift_title": "Deriva del modelo detectada",
     "notification_model_drift_body": "Zona {zone}: la correlación entre humedad y modelo ha bajado a {correlation}.",
     "notification_water_me_now_title": "Se recomienda regar a mano",
     "notification_water_me_now_body": "Zona {zone}: déficit {deficit} por encima del umbral; riega a mano.",
-    "notification_watchdog_triggered_title": "Válvula cerrada por el vigilante de seguridad",
+    "notification_watchdog_triggered_title": "Válvula cerrada a la fuerza por el temporizador guardián (watchdog)",
     "notification_watchdog_triggered_body": "La válvula de la zona {zone} ha estado abierta más de {duration_min} min sin recibir una orden de cierre. NeverDry la ha cerrado por su cuenta por seguridad. Comprueba que la automatización o la lógica de suministro funcionan correctamente."
   },
   "issues": {
     "soil_probe_needs_a_zone": {
-      "title": "NeverDry: ¿en qué zona está el sensor de suelo?",
+      "title": "NeverDry: ¿en qué zona está la sonda de suelo?",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "¿En qué zona está el sensor?",
-            "description": "El sensor de humedad del suelo `{probe}` está declarado para toda la instalación, así que ahora mismo todas las zonas lo están leyendo. Un sensor mide un trozo de suelo, con una plantación encima y su propio historial de riego: su lectura no se puede trasladar a una zona que se riega por su cuenta.\n\nDile a NeverDry en qué zona está enterrado. Mientras tanto no ha cambiado nada: tus zonas se comportan exactamente igual que antes, y seguirán así hasta que respondas.",
+            "title": "¿En qué zona está la sonda?",
+            "description": "La sonda de humedad del suelo `{probe}` está declarada para toda la instalación, así que ahora mismo todas las zonas la están leyendo. Una sonda mide un trozo de suelo, con una plantación encima y su propio historial de riego: su lectura no se puede trasladar a una zona que se riega por su cuenta.\n\nDile a NeverDry en qué zona está enterrada. Mientras tanto no ha cambiado nada: tus zonas se comportan exactamente igual que antes, y seguirán así hasta que respondas.",
             "data": {
-              "zone": "¿En qué zona está el sensor?"
+              "zone": "¿En qué zona está la sonda?"
             },
             "data_description": {
-              "zone": "La zona elegida medirá su déficit con el sensor. Las demás vuelven a estimarlo, que es lo que un sensor enterrado en el suelo de otra zona nunca habría podido decirles."
+              "zone": "La zona elegida medirá su déficit con la sonda. Las demás vuelven a estimarlo, que es lo que una sonda enterrada en el suelo de otra zona nunca habría podido decirles."
             }
           }
         }
