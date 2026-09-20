@@ -442,6 +442,73 @@ admission and never silently authorise an overlap the supply cannot feed.
 
 Unreconciled.
 
+### What an upgrade owes the installations that already exist
+
+Nobody has asked for this, which is why it is written down: whatever the
+scheduler becomes, an installation that upgrades and touches none of the new
+settings has to behave exactly as it did before. That is a requirement on the
+design, not a courtesy, and it is cheap to meet only if it is stated before the
+design rather than discovered after it.
+
+What exists today is three irrigation modes on a zone - `manual`, `reactive` and
+`scheduled` - and `scheduled` carries a per-zone time of its own
+(`irrigation_time`, read in `controller.py`). **Both stay properties of the zone,
+and the scheduler acquires them as inputs rather than taking them over.** That is
+the same relationship already established for the cycle-and-soak rule in
+`scheduler.md` §11, where the scheduler does not own the rule, it interposes it:
+infiltration belongs to that patch of ground, and when a zone may water belongs
+to the zone too. Saying it this way settles the migration question rather than
+merely answering it - a property that never changes owner has nothing to migrate.
+
+The mode answers *whether* a zone waters and the window answers *when* it may, so
+they coexist rather than replace each other, and a window left unset must mean no
+constraint at all.
+
+**The delivery pattern is a third such property, and it is the easy one.** A zone
+already holds a `CycleSoakRule` with two timings, the longest segment and the
+soak between segments, and `Zone.cycle_soak` is where they live. Note what the
+model does *not* have: there is no once-off-versus-cycle-and-soak mode. Once-off
+is both timings being unset, which is also the default, so the two states cannot
+disagree with each other the way a mode and its timings can. The segment count is
+not stored either - `scheduler.md` §11 derives it from the volume, because a
+fourth number could contradict the other three.
+
+It is the easy one because **nothing has been saved yet**: the rule has no field
+in the configuration flow and no caller outside the model, so no installation can
+have set it. There is nothing to migrate, and the requirement at the top of this
+section is met by construction as long as unset keeps meaning one uninterrupted
+run. Worth saying plainly all the same, because a rule that is written and
+unreachable reads exactly like a rule that is in use.
+
+So for this one the word is acquisition, not migration, and the distinction
+carries work: acquiring a property nobody can set leaves the scheduler consulting
+a rule that is unset on every installation, which is today's situation and is
+inert. Whoever wires the scheduler owes the two timings a way in at the same
+time, or the pattern ships switched off for everyone and nobody can tell.
+
+**Decided: an installation that upgrades is one-shot.** Which costs nothing to
+implement, because that is what absence already means - there is no migration
+step to write, no configuration entry to version, and no way for it to go wrong
+halfway through. The obligation it does create is on the form rather than on the
+data: when the two timings appear in the configuration flow, an existing zone
+must show as one-shot *selected*, not as two blank boxes. The state is the same
+either way; the difference is whether somebody opening the options page can tell
+what their zone is doing. A blank field says nothing, and this project has been
+caught by that before.
+
+The one collision is `scheduled`, because a zone's fixed hour and a site's window
+are both a "when", declared at different levels. That case already has a position
+taken above: an hour outside every window is not suppressed, the site wins, the
+run is shifted to the first admissible time and the zone is warned with the
+effective time named. So the field stays where it is and no setting is migrated.
+
+**The risk is not a field that moves, it is a field that quietly means something
+else.** Today a scheduled zone waters at its hour; if the window logic were to
+start gating scheduled zones by deficit or by a projection of it, a setting
+somebody saved months ago would change behaviour without anyone editing it, and
+the release notes would have nothing to say because no field changed. Whatever is
+decided, it has to be decided *knowingly* for `scheduled`, and said out loud.
+
 ## What this document does not do
 
 It does not propose a design, name an object, or say which of the requests above
