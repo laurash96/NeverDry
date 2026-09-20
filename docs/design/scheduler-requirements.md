@@ -486,6 +486,16 @@ a rule that is unset on every installation, which is today's situation and is
 inert. Whoever wires the scheduler owes the two timings a way in at the same
 time, or the pattern ships switched off for everyone and nobody can tell.
 
+**Decided: an installation that upgrades is one-shot.** Which costs nothing to
+implement, because that is what absence already means - there is no migration
+step to write, no configuration entry to version, and no way for it to go wrong
+halfway through. The obligation it does create is on the form rather than on the
+data: when the two timings appear in the configuration flow, an existing zone
+must show as one-shot *selected*, not as two blank boxes. The state is the same
+either way; the difference is whether somebody opening the options page can tell
+what their zone is doing. A blank field says nothing, and this project has been
+caught by that before.
+
 The one collision is `scheduled`, because a zone's fixed hour and a site's window
 are both a "when", declared at different levels. That case already has a position
 taken above: an hour outside every window is not suppressed, the site wins, the
