@@ -464,6 +464,28 @@ The mode answers *whether* a zone waters and the window answers *when* it may, s
 they coexist rather than replace each other, and a window left unset must mean no
 constraint at all.
 
+**The delivery pattern is a third such property, and it is the easy one.** A zone
+already holds a `CycleSoakRule` with two timings, the longest segment and the
+soak between segments, and `Zone.cycle_soak` is where they live. Note what the
+model does *not* have: there is no once-off-versus-cycle-and-soak mode. Once-off
+is both timings being unset, which is also the default, so the two states cannot
+disagree with each other the way a mode and its timings can. The segment count is
+not stored either - `scheduler.md` §11 derives it from the volume, because a
+fourth number could contradict the other three.
+
+It is the easy one because **nothing has been saved yet**: the rule has no field
+in the configuration flow and no caller outside the model, so no installation can
+have set it. There is nothing to migrate, and the requirement at the top of this
+section is met by construction as long as unset keeps meaning one uninterrupted
+run. Worth saying plainly all the same, because a rule that is written and
+unreachable reads exactly like a rule that is in use.
+
+So for this one the word is acquisition, not migration, and the distinction
+carries work: acquiring a property nobody can set leaves the scheduler consulting
+a rule that is unset on every installation, which is today's situation and is
+inert. Whoever wires the scheduler owes the two timings a way in at the same
+time, or the pattern ships switched off for everyone and nobody can tell.
+
 The one collision is `scheduled`, because a zone's fixed hour and a site's window
 are both a "when", declared at different levels. That case already has a position
 taken above: an hour outside every window is not suppressed, the site wins, the
