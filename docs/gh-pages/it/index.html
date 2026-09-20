@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A static host sets no response headers, so the policy has to be markup.
+         Known limit: frame-ancestors, report-uri and sandbox are ignored when a
+         CSP arrives in a meta tag, so this does not protect against framing. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://raw.githubusercontent.com https://img.shields.io https://my.home-assistant.io; connect-src 'self' https://hub.vemetric.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <!-- Analytics, served from our own origin: see vendor/README.md -->
+    <script src="/NeverDry/vendor/vemetric-init.js"></script>
+    <script defer src="/NeverDry/vendor/vemetric-main.js" id="vmtrc-scr" data-token="TmCTG71IzwQtA2Rv"></script>
+    <title>NeverDry - Irrigazione Intelligente per Home Assistant</title>
+    <!-- Language map and switch, in <head> so nobody sees a flash of the
+         wrong language. Without JavaScript the reader stays on English,
+         which is the correct answer and not a degraded one. -->
+    <script src="/NeverDry/languages.js"></script>
+    <script src="/NeverDry/lang_switch.js"></script>
+    <!-- SEO/GEO -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/NeverDry/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/NeverDry/favicon-16x16.png">
+    <link rel="icon" href="/NeverDry/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/NeverDry/apple-touch-icon.png">
+    <meta name="description" content="NeverDry decide quando e quanto irrigare il giardino con un modello scientifico di bilancio idrico FAO-56. La valvola si chiude sempre. Gratis, via HACS.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://never-dry.github.io/NeverDry/it/">
+    <link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/">
+    <link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/">
+    <link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/">
+    <link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/">
+    <link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/">
+    <link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/">
+    <link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/">
+    <link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/">
+    <link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/">
+    <link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NeverDry">
+    <meta property="og:title" content="NeverDry - Irrigazione Intelligente per Home Assistant">
+    <meta property="og:description" content="NeverDry decide quando e quanto irrigare il giardino con un modello scientifico di bilancio idrico FAO-56. La valvola si chiude sempre. Gratis, via HACS.">
+    <meta property="og:url" content="https://never-dry.github.io/NeverDry/it/">
+    <meta property="og:image" content="https://never-dry.github.io/NeverDry/social-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="NeverDry - smart irrigation for Home Assistant">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="de_AT">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="pt_PT">
+    <meta property="og:locale:alternate" content="hr_HR">
+    <meta property="og:locale:alternate" content="hu_HU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NeverDry - Irrigazione Intelligente per Home Assistant">
+    <meta name="twitter:description" content="NeverDry decide quando e quanto irrigare il giardino con un modello scientifico di bilancio idrico FAO-56. La valvola si chiude sempre. Gratis, via HACS.">
+    <meta name="twitter:image" content="https://never-dry.github.io/NeverDry/social-card.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "NeverDry",
+      "applicationCategory": "HomeAutomationApplication",
+      "operatingSystem": "Home Assistant",
+      "inLanguage": "it",
+      "description": "NeverDry decide quando e quanto irrigare il giardino con un modello scientifico di bilancio idrico FAO-56. La valvola si chiude sempre. Gratis, via HACS.",
+      "url": "https://never-dry.github.io/NeverDry/it/",
+      "downloadUrl": "https://github.com/never-dry/NeverDry",
+      "softwareHelp": "https://github.com/never-dry/NeverDry/blob/main/docs/user_manual.md",
+      "license": "https://github.com/never-dry/NeverDry/blob/main/LICENSE",
+      "author": { "@type": "Person", "name": "drake69", "url": "https://github.com/drake69" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <!-- / SEO/GEO -->
+    <link rel="stylesheet" href="/NeverDry/styles.css">
+</head>
+<body>
+
+<nav class="lang-bar" style="background: var(--accent);"
+     data-lang-switcher aria-label="Language"></nav>
+
+<section class="hero">
+    <img src="https://raw.githubusercontent.com/never-dry/NeverDry/main/custom_components/never_dry/brand/icon.png" alt="NeverDry" width="84" height="84" style="margin-bottom: 0.1em;">
+    <h1>NeverDry</h1>
+    <p class="tagline">Irrigazione intelligente per Home Assistant. Un modello scientifico di bilancio idrico che decide quando e quanto irrigare in base al fabbisogno reale del giardino.</p>
+    <div class="badges">
+        <img src="https://img.shields.io/github/actions/workflow/status/never-dry/NeverDry/security.yml?label=security&style=flat-square" alt="Security" width="104" height="20">
+        <img src="https://img.shields.io/github/v/release/never-dry/NeverDry?style=flat-square" alt="Release" width="102" height="20">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2Fbadges%2Fdownloads.json&style=flat-square" alt="Downloads of the most downloaded release" width="234" height="20">
+        <img src="https://img.shields.io/github/downloads/never-dry/NeverDry/latest/total?label=downloads&color=41BDF5&style=flat-square" alt="Downloads" width="92" height="20">
+        <img src="https://img.shields.io/badge/HACS-Default-41BDF5?style=flat-square" alt="HACS" width="90" height="20">
+        <a href="https://community.home-assistant.io/t/neverdry-smart-irrigation-that-calculates-when-and-how-long-to-water-fao-56-water-balance-hacs/1013835"><img src="https://img.shields.io/badge/support-HA%20Community-41BDF5?style=flat-square&logo=home-assistant&logoColor=white" alt="HA Community support" width="163" height="20"></a>
+    </div>
+    <!-- Primary CTA: one-click HACS install (moved up from the Install section, 2026-07-22) -->
+    <a class="cta" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=never-dry&repository=NeverDry&category=integration"
+       data-vmtrc="InstallClicked" data-vmtrc-location="hero"
+       style="font-size: 1.2em; padding: 14px 40px;">Installa in Home Assistant</a>
+    <div style="margin-top: 0.6em; font-size: 0.9em; opacity: 0.8;">Un solo clic tramite HACS - NeverDry &egrave; nel repository predefinito.</div>
+
+    <!-- Value props: 3 benefici in riga, compatti (niente card nell'hero - 2026-07-22) -->
+    <div style="margin-top: 1.3em; display: flex; flex-wrap: wrap; gap: 0.6em 1.6em; justify-content: center; font-size: 1.05em; line-height: 1.35;">
+        <div>🌡️&nbsp;&nbsp;Irriga solo quando il suolo &egrave; asciutto</div>
+        <div>🛡️&nbsp;&nbsp;La valvola si chiude sempre</div>
+        <div>🌧️&nbsp;&nbsp;Salta l'irrigazione dopo la pioggia</div>
+    </div>
+
+    <!-- Secondary links -->
+    <div style="margin-top: 1.6em;">
+        <a class="cta secondary" href="https://github.com/never-dry/NeverDry" data-vmtrc="GitHubClicked" data-vmtrc-location="hero">GitHub</a>
+        <a class="cta secondary" href="https://github.com/never-dry/NeverDry/blob/main/docs/user_manual.md" data-vmtrc="DocsClicked" data-vmtrc-location="hero">Documentazione</a>
+    </div>
+
+    <div style="margin-top: 1.1em; font-size: 0.8em; opacity: 0.6;">
+        Lo usi gi&agrave;? <a href="https://github.com/never-dry/NeverDry/stargazers" data-vmtrc="StarClicked" data-vmtrc-location="hero" style="color: white; text-decoration: underline;">lascia una ⭐</a> per aiutare altri a scoprirlo.
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Funzionalit&agrave;</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🌡️</div>
+                <h3>Modello ET scientifico</h3>
+                <p>Bilancio idrico ispirato allo standard FAO-56 in forma semplificata. L'evapotraspirazione &egrave; stimata a partire dalla temperatura con due parametri calibrabili.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌱</div>
+                <h3>Dieci famiglie di piante</h3>
+                <p>Coefficiente colturale (K<sub>c</sub>) per zona con variazione stagionale: prato, ortaggi, succulente, alberi da frutto e altri profili predefiniti. L'andamento si adatta automaticamente all'emisfero di installazione.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🚿</div>
+                <h3>Controllo diretto delle valvole</h3>
+                <p>Apertura e chiusura automatica delle valvole, irrigazione multi-zona in sequenza per evitare cali di pressione e arresto di emergenza disponibile in qualsiasi momento.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Deficit per zona</h3>
+                <p>Ogni zona mantiene il proprio deficit idrico del suolo. Piante diverse si asciugano a ritmi diversi e ricevono acqua di conseguenza.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌧️</div>
+                <h3>Sensibile alla pioggia</h3>
+                <p>L'irrigazione viene omessa quando le precipitazioni hanno gi&agrave; ricostituito la riserva idrica. Il deficit diminuisce a ogni evento piovoso rilevato dal sensore.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚙️</div>
+                <h3>Configurazione da interfaccia</h3>
+                <p>Tutta la configurazione avviene dall'interfaccia di Home Assistant, senza modifiche a file YAML.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔄</div>
+                <h3>Aggiornamenti senza interruzioni</h3>
+                <p>Le release sono pubblicate automaticamente tramite GitHub Actions e la migrazione di configurazione preserva le impostazioni tra una versione e l'altra. L'aggiornamento avviene con un clic da HACS.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🖐️</div>
+                <h3>Apertura manuale riconosciuta</h3>
+                <p>Quando la valvola viene aperta dal pulsante fisico, dall'applicazione Zigbee o dallo switch di Home Assistant, NeverDry rileva la sessione, aggiorna il deficit e chiude la valvola al minore fra il volume necessario e il timeout di sicurezza.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💧</div>
+                <h3>Tutte le modalit&agrave; di innesco</h3>
+                <p>Irrigazione programmata, pulsante &laquo;Irriga&raquo; sulla scheda della zona, automazioni di Home Assistant, pulsante a bordo valvola e registrazione di un'irrigazione effettuata con mezzi esterni (ad esempio canna o tubo): in tutti i casi il deficit resta coerente con la realt&agrave; del giardino.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🛡️</div>
+                <h3>Sicurezza a pi&ugrave; livelli</h3>
+                <p>Tre strati di sicurezza indipendenti prevengono l'apertura prolungata della valvola: watchdog software (task asyncio), interlock hardware che programma il timer sul dispositivo via entit&agrave; Zigbee o MQTT, e timeout di consegna. Se un livello fallisce, il successivo interviene.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Zone Card -->
+<section style="padding: 60px 0;">
+    <div class="container">
+        <h2 style="text-align: center; font-size: 2em; margin-bottom: 0.5em; color: var(--accent);">See every zone at a glance</h2>
+        <p style="max-width: 700px; margin: 1em auto; text-align: center;">NeverDry ships a custom Lovelace card - <strong>auto-registered</strong> on install, with no resource to add. It shows up in the "Add card" picker as <em>NeverDry Zone Card</em>: choose a zone to see its valve status, deficit vs threshold, next and last session, totals, parameters, and action buttons - all in one place.</p>
+        <p style="text-align: center; margin-top: 1.5em;">
+            <img src="https://raw.githubusercontent.com/never-dry/NeverDry/main/docs/assets/zone-card.png" alt="NeverDry Zone Card" width="1290" height="2796" style="height: auto; max-width: 300px; width: 100%; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.18);">
+        </p>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="container">
+        <h2>Come funziona</h2>
+        <p>NeverDry mantiene un bilancio idrico per ciascuna zona di irrigazione secondo la relazione:</p>
+        <div class="formula">
+            D<sub>zona</sub>(t) = D<sub>zona</sub>(t-1) + ET<sub>h</sub> &times; K<sub>c</sub> &times; &Delta;t &minus; pioggia
+        </div>
+        <p>Quando il deficit &egrave; elevato il suolo &egrave; asciutto e richiede acqua; quando piove il deficit diminuisce; dopo un'irrigazione si riporta a zero (o si riduce in proporzione al volume effettivamente erogato). <strong>Un millimetro di deficit corrisponde a un litro di acqua per ogni metro quadrato da reintegrare.</strong></p>
+    </div>
+</section>
+
+<section class="families">
+    <div class="container">
+        <h2>Famiglie di piante</h2>
+        <table>
+            <thead>
+                <tr><th>Famiglia</th><th>Inverno</th><th>Primavera</th><th>Estate</th><th>Autunno</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Prato / tappeto erboso</td><td>0,45</td><td>0,85</td><td>1,00</td><td>0,70</td></tr>
+                <tr><td>Ortaggi (stagionali)</td><td>0,30</td><td>0,70</td><td>1,10</td><td>0,50</td></tr>
+                <tr><td>Alberi da frutto (decidui)</td><td>0,35</td><td>0,70</td><td>0,95</td><td>0,55</td></tr>
+                <tr><td>Arbusti ornamentali</td><td>0,40</td><td>0,65</td><td>0,80</td><td>0,55</td></tr>
+                <tr><td>Erbe aromatiche (mediterranee)</td><td>0,30</td><td>0,55</td><td>0,70</td><td>0,40</td></tr>
+                <tr><td>Agrumi e sempreverdi da frutto</td><td>0,60</td><td>0,65</td><td>0,70</td><td>0,65</td></tr>
+                <tr><td>Rose</td><td>0,35</td><td>0,75</td><td>0,95</td><td>0,55</td></tr>
+                <tr><td>Succulente e cactacee</td><td>0,15</td><td>0,25</td><td>0,35</td><td>0,20</td></tr>
+                <tr><td>Tappezzanti autoctone</td><td>0,25</td><td>0,45</td><td>0,55</td><td>0,35</td></tr>
+                <tr><td>Giardino misto</td><td>0,40</td><td>0,70</td><td>0,90</td><td>0,55</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="install">
+    <div class="container">
+        <h2>Installazione</h2>
+        <div class="install-steps">
+            <div style="text-align: center; margin-bottom: 2em; padding: 24px; background: var(--accent-light); border-radius: 12px;">
+                <p style="font-size: 1.05em; margin-bottom: 1em; font-weight: 600;">Installa direttamente da HACS - un solo clic:</p>
+                <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=never-dry&repository=NeverDry&category=integration">
+                    <img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Apri Home Assistant e installa NeverDry da HACS." height="48">
+                </a>
+            </div>
+            <h3>Tramite HACS (passaggi manuali)</h3>
+            <ol>
+                <li>Apri HACS &rarr; Integrazioni.</li>
+                <li>Cerca <strong>NeverDry</strong> e clicca su Installa.</li>
+                <li>Riavvia Home Assistant.</li>
+                <li>Apri Impostazioni &rarr; Dispositivi e servizi &rarr; <strong>Aggiungi integrazione</strong> &rarr; NeverDry.</li>
+            </ol>
+            <h3 style="margin-top: 1.5em;">Installazione manuale</h3>
+            <ol>
+                <li>Scarica l'ultima versione di <code>never_dry.zip</code> dalla pagina <a href="https://github.com/never-dry/NeverDry/releases/latest">Releases</a> ed estraila</li>
+                <li>Copia la cartella <code>custom_components/never_dry/</code> nella directory di configurazione di Home Assistant.</li>
+                <li>Riavvia Home Assistant.</li>
+                <li>Aggiungi l'integrazione dall'interfaccia.</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="support">
+    <h2>Sostieni il progetto</h2>
+    <p>NeverDry &egrave; gratuito e open source - il modo migliore per sostenerlo &egrave; mettere una stella e farlo conoscere:</p>
+    <div style="display: flex; gap: 1em; justify-content: center; flex-wrap: wrap;">
+        <a class="kofi-btn" style="background: #24292e;" href="https://github.com/never-dry/NeverDry/stargazers">&#11088; Lascia una stella su GitHub</a>
+    </div>
+    <p style="margin-top: 1.8em; margin-bottom: 0.8em; opacity: 0.8;">Conosci qualcuno con un giardino e Home Assistant? Fai girare la voce:</p>
+    <div style="display: flex; gap: 0.8em; justify-content: center; flex-wrap: wrap;">
+        <a class="kofi-btn" style="background: #1877F2; padding: 10px 22px; font-size: 1em;" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2F" target="_blank" rel="noopener" data-vmtrc="ShareClicked" data-vmtrc-network="facebook">Condividi su Facebook</a>
+        <a class="kofi-btn" style="background: #FF4500; padding: 10px 22px; font-size: 1em;" href="https://www.reddit.com/submit?url=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2F&title=NeverDry%20%E2%80%94%20smart%20irrigation%20for%20Home%20Assistant%20(FAO-56%20water%20balance)" target="_blank" rel="noopener" data-vmtrc="ShareClicked" data-vmtrc-network="reddit">Condividi su Reddit</a>
+        <a class="kofi-btn" style="background: #111111; padding: 10px 22px; font-size: 1em;" href="https://twitter.com/intent/tweet?text=NeverDry%20%E2%80%94%20smart%20irrigation%20for%20Home%20Assistant%20(FAO-56%20water%20balance)&url=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2F" target="_blank" rel="noopener" data-vmtrc="ShareClicked" data-vmtrc-network="x">Condividi su X</a>
+    </div>
+</section>
+
+<section class="support" style="background: #f0f0f0; padding: 40px 0;">
+    <div class="container" style="text-align: left; max-width: 700px;">
+        <h2 style="text-align: center;">Avvertenze</h2>
+        <p style="font-size: 0.9em; color: #555;">NeverDry &egrave; un progetto amatoriale destinato a un uso residenziale. Non &egrave; certificato per applicazioni agricole, commerciali o di sicurezza. Il modello di evapotraspirazione &egrave; una semplificazione dello standard FAO-56 e non sostituisce la consulenza agronomica professionale. Si raccomanda di monitorare regolarmente l'impianto di irrigazione. Gli autori declinano ogni responsabilit&agrave; per eventuali danni o perdite.</p>
+
+        <h2 style="text-align: center; margin-top: 2em;">Ringraziamenti</h2>
+        <p style="font-size: 0.9em; color: #555;">Sviluppato con il supporto di <a href="https://claude.ai">Claude</a> di <a href="https://anthropic.com">Anthropic</a>.</p>
+
+        <h2 style="text-align: center; margin-top: 2em;">Riferimenti scientifici</h2>
+        <ul style="font-size: 0.85em; color: #555; line-height: 1.8;">
+            <li>Allen, R.G. et al. (1998). <em>Crop evapotranspiration.</em> <a href="https://www.fao.org/4/x0490e/x0490e00.htm">FAO Irrigation and Drainage Paper 56</a>.</li>
+            <li>Hargreaves, G.H. &amp; Samani, Z.A. (1985). Reference crop evapotranspiration from temperature. <em>Applied Eng. in Agriculture.</em> <a href="https://doi.org/10.13031/2013.26773">DOI: 10.13031/2013.26773</a></li>
+            <li>Penman, H.L. (1948). Natural evaporation from open water, bare soil and grass. <em>Proc. R. Soc. London A.</em> <a href="https://doi.org/10.1098/rspa.1948.0037">DOI: 10.1098/rspa.1948.0037</a></li>
+            <li>Monteith, J.L. (1965). Evaporation and environment. <em>Symp. Soc. Exp. Biol.</em> <a href="https://repository.rothamsted.ac.uk/item/8v5v7/evaporation-and-environment">Rothamsted Repository</a></li>
+            <li>Fereres, E. &amp; Soriano, M.A. (2007). Deficit irrigation for reducing agricultural water use. <em>J. Exp. Bot.</em> <a href="https://doi.org/10.1093/jxb/erl165">DOI: 10.1093/jxb/erl165</a></li>
+        </ul>
+    </div>
+</section>
+
+<section style="background: var(--accent-light); padding: 16px 20px; text-align: center; font-size: 0.85em; color: #555;">
+    <div class="container">
+        Questa pagina &egrave; tradotta in italiano. Per segnalazioni o miglioramenti puoi
+        <a href="https://github.com/never-dry/NeverDry/issues" style="color: var(--accent);">aprire una issue</a> o inviare una pull request.
+    </div>
+</section>
+
+<footer>
+    <p>NeverDry - Licenza MIT - Sviluppato da <a href="https://github.com/drake69">drake69</a></p>
+    <p class="site-provenance"><a href="/NeverDry/privacy.html">Privacy</a> (EN) &middot; Ultimo aggiornamento {{SITE_UPDATED}} &middot; v{{SITE_VERSION}} &middot; <a href="https://github.com/never-dry/NeverDry/tree/main/docs/gh-pages">sorgenti</a></p>
+</footer>
+
+</body>
+</html>

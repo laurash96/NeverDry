@@ -1,121 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Only addresses that answer with their own content belong here. The old
+     flat per-language files (it.html, de.html, at.html and the rest) still
+     exist so that published links keep working, but they are redirects and
+     are deliberately absent: a sitemap that lists redirects asks a search
+     engine to index a page that immediately disowns itself.
+     privacy.html carries no alternates because it exists in English only. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://never-dry.github.io/NeverDry/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/it.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/it/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/de.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/de/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/at.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/de-at/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/es.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/es/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/fr.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/fr/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/pt.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/pt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/hr.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/hr/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
   </url>
   <url>
-    <loc>https://never-dry.github.io/NeverDry/hu.html</loc>
+    <loc>https://never-dry.github.io/NeverDry/hu/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html"/>
-    <xhtml:link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html"/>
-    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/"/>
+    <xhtml:link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/"/>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/"/>
+  </url>
+  <url>
+    <loc>https://never-dry.github.io/NeverDry/privacy.html</loc>
   </url>
 </urlset>

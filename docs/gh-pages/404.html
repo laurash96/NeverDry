@@ -3,10 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Page not found — NeverDry</title>
+<!-- A static host sets no response headers, so the policy has to be markup.
+     Known limit: frame-ancestors, report-uri and sandbox are ignored when a
+     CSP arrives in a meta tag, so this does not protect against framing. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<title>Page not found - NeverDry</title>
 <meta name="robots" content="noindex, follow">
 <link rel="icon" href="/NeverDry/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/NeverDry/apple-touch-icon.png">
+<script src="/NeverDry/languages.js"></script>
+<script defer src="/NeverDry/lang_list.js"></script>
 <!-- GitHub Pages serves this file at the requested URL, so relative paths would resolve
      against that path and break on deep URLs: every link and asset here is absolute,
      and the styles are inline rather than pulled from styles.css. -->
@@ -60,13 +66,15 @@
   .langs a { color: var(--accent); text-decoration: none; margin: 0 6px; white-space: nowrap; }
   .langs a:hover { text-decoration: underline; }
   footer { text-align: center; padding: 20px; font-size: .85em; opacity: .7; }
+  .site-foot { text-align: center; padding: 16px 20px 24px; }
+  .site-foot .site-provenance { font-size: 0.85em; opacity: 0.7; }
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="code">404</div>
-  <h1>This page doesn&rsquo;t exist</h1>
+  <h1>This page doesn't exist</h1>
   <p>The link may be outdated, or the address may contain a typo. Everything below still works.</p>
 </div>
 
@@ -95,21 +103,15 @@
       </a>
     </div>
 
-    <div class="langs">
-      <a href="https://never-dry.github.io/NeverDry/">English</a>·
-      <a href="https://never-dry.github.io/NeverDry/it.html">Italiano</a>·
-      <a href="https://never-dry.github.io/NeverDry/de.html">Deutsch</a>·
-      <a href="https://never-dry.github.io/NeverDry/at.html">&Ouml;sterreich</a>·
-      <a href="https://never-dry.github.io/NeverDry/es.html">Espa&ntilde;ol</a>·
-      <a href="https://never-dry.github.io/NeverDry/fr.html">Fran&ccedil;ais</a>·
-      <a href="https://never-dry.github.io/NeverDry/pt.html">Portugu&ecirc;s</a>·
-      <a href="https://never-dry.github.io/NeverDry/hr.html">Hrvatski</a>·
-      <a href="https://never-dry.github.io/NeverDry/hu.html">Magyar</a>
-    </div>
+    <div class="langs" data-lang-list></div>
   </div>
 </main>
 
-<footer>NeverDry &mdash; MIT License</footer>
+<footer class="site-foot">
+  <p class="site-provenance"><a href="/NeverDry/privacy.html">Privacy</a> (EN) &middot; Last updated {{SITE_UPDATED}} &middot; v{{SITE_VERSION}} &middot; <a href="https://github.com/never-dry/NeverDry/tree/main/docs/gh-pages">source</a></p>
+</footer>
+
+<footer>NeverDry - MIT License</footer>
 
 </body>
 </html>

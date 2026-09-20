@@ -3,40 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Vemetric analytics -->
-    <script>
-      window.vmtrcq = window.vmtrcq || [];
-      window.vmtrc = window.vmtrc || function (){window.vmtrcq.push(Array.prototype.slice.call(arguments))};
-    </script>
-    <script defer src="https://cdn.vemetric.com/main.js" id="vmtrc-scr" data-token="TmCTG71IzwQtA2Rv"></script>
-    <title>NeverDry — Smart Irrigation for Home Assistant</title>
+    <!-- A static host sets no response headers, so the policy has to be markup.
+         Known limit: frame-ancestors, report-uri and sandbox are ignored when a
+         CSP arrives in a meta tag, so this does not protect against framing. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://raw.githubusercontent.com https://img.shields.io https://my.home-assistant.io; connect-src 'self' https://hub.vemetric.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <!-- Analytics, served from our own origin: see vendor/README.md -->
+    <script src="/NeverDry/vendor/vemetric-init.js"></script>
+    <script defer src="/NeverDry/vendor/vemetric-main.js" id="vmtrc-scr" data-token="TmCTG71IzwQtA2Rv"></script>
+    <title>NeverDry - Smart Irrigation for Home Assistant</title>
+    <!-- Language map and switch, in <head> so nobody sees a flash of the
+         wrong language. Without JavaScript the reader stays on English,
+         which is the correct answer and not a degraded one. -->
+    <script src="/NeverDry/languages.js"></script>
+    <script src="/NeverDry/lang_switch.js"></script>
     <!-- SEO/GEO -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <meta name="description" content="NeverDry is a free Home Assistant integration that decides when and how long to water your garden with a scientific FAO-56 water-balance model — and guarantees the valve always closes. One-click install via HACS.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/NeverDry/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/NeverDry/favicon-16x16.png">
+    <link rel="icon" href="/NeverDry/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/NeverDry/apple-touch-icon.png">
+    <meta name="description" content="NeverDry decides when and how long to water your garden with a scientific FAO-56 water balance. The valve always closes. Free, installed via HACS.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://never-dry.github.io/NeverDry/">
     <link rel="alternate" hreflang="en" href="https://never-dry.github.io/NeverDry/">
-    <link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it.html">
-    <link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de.html">
-    <link rel="alternate" hreflang="de-AT" href="https://never-dry.github.io/NeverDry/at.html">
-    <link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es.html">
-    <link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr.html">
-    <link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt.html">
-    <link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr.html">
-    <link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu.html">
+    <link rel="alternate" hreflang="it" href="https://never-dry.github.io/NeverDry/it/">
+    <link rel="alternate" hreflang="de" href="https://never-dry.github.io/NeverDry/de/">
+    <link rel="alternate" hreflang="de-at" href="https://never-dry.github.io/NeverDry/de-at/">
+    <link rel="alternate" hreflang="es" href="https://never-dry.github.io/NeverDry/es/">
+    <link rel="alternate" hreflang="fr" href="https://never-dry.github.io/NeverDry/fr/">
+    <link rel="alternate" hreflang="pt" href="https://never-dry.github.io/NeverDry/pt/">
+    <link rel="alternate" hreflang="hr" href="https://never-dry.github.io/NeverDry/hr/">
+    <link rel="alternate" hreflang="hu" href="https://never-dry.github.io/NeverDry/hu/">
     <link rel="alternate" hreflang="x-default" href="https://never-dry.github.io/NeverDry/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="NeverDry">
-    <meta property="og:title" content="NeverDry — Smart Irrigation for Home Assistant">
-    <meta property="og:description" content="NeverDry is a free Home Assistant integration that decides when and how long to water your garden with a scientific FAO-56 water-balance model — and guarantees the valve always closes. One-click install via HACS.">
+    <meta property="og:title" content="NeverDry - Smart Irrigation for Home Assistant">
+    <meta property="og:description" content="NeverDry decides when and how long to water your garden with a scientific FAO-56 water balance. The valve always closes. Free, installed via HACS.">
     <meta property="og:url" content="https://never-dry.github.io/NeverDry/">
     <meta property="og:image" content="https://never-dry.github.io/NeverDry/social-card.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="NeverDry — smart irrigation for Home Assistant">
+    <meta property="og:image:alt" content="NeverDry - smart irrigation for Home Assistant">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="it_IT">
     <meta property="og:locale:alternate" content="de_DE">
@@ -47,8 +53,8 @@
     <meta property="og:locale:alternate" content="hr_HR">
     <meta property="og:locale:alternate" content="hu_HU">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NeverDry — Smart Irrigation for Home Assistant">
-    <meta name="twitter:description" content="NeverDry is a free Home Assistant integration that decides when and how long to water your garden with a scientific FAO-56 water-balance model — and guarantees the valve always closes. One-click install via HACS.">
+    <meta name="twitter:title" content="NeverDry - Smart Irrigation for Home Assistant">
+    <meta name="twitter:description" content="NeverDry decides when and how long to water your garden with a scientific FAO-56 water balance. The valve always closes. Free, installed via HACS.">
     <meta name="twitter:image" content="https://never-dry.github.io/NeverDry/social-card.png">
     <script type="application/ld+json">
     {
@@ -58,7 +64,7 @@
       "applicationCategory": "HomeAutomationApplication",
       "operatingSystem": "Home Assistant",
       "inLanguage": "en",
-      "description": "NeverDry is a free Home Assistant integration that decides when and how long to water your garden with a scientific FAO-56 water-balance model — and guarantees the valve always closes. One-click install via HACS.",
+      "description": "NeverDry decides when and how long to water your garden with a scientific FAO-56 water balance. The valve always closes. Free, installed via HACS.",
       "url": "https://never-dry.github.io/NeverDry/",
       "downloadUrl": "https://github.com/never-dry/NeverDry",
       "softwareHelp": "https://github.com/never-dry/NeverDry/blob/main/docs/user_manual.md",
@@ -68,43 +74,34 @@
     }
     </script>
     <!-- / SEO/GEO -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/NeverDry/styles.css">
 </head>
 <body>
 
 <!-- Language selector -->
-<nav class="lang-bar" style="background: var(--accent);">
-    <a href="index.html" class="active">EN</a>
-    <a href="it.html">IT</a>
-    <a href="de.html">DE</a>
-    <a href="at.html">AT</a>
-    <a href="fr.html">FR</a>
-    <a href="es.html">ES</a>
-    <a href="pt.html">PT</a>
-    <a href="hu.html">HU</a>
-    <a href="hr.html">HR</a>
-</nav>
+<nav class="lang-bar" style="background: var(--accent);"
+     data-lang-switcher aria-label="Language"></nav>
 
 <!-- Hero -->
 <section class="hero">
     <img src="https://raw.githubusercontent.com/never-dry/NeverDry/main/custom_components/never_dry/brand/icon.png" alt="NeverDry" width="84" height="84" style="margin-bottom: 0.1em;">
     <h1>NeverDry</h1>
-    <p class="tagline">Your garden tells you when it's thirsty. NeverDry listens — and makes sure the valve always closes.</p>
+    <p class="tagline">Your garden tells you when it's thirsty. NeverDry listens - and makes sure the valve always closes.</p>
     <div class="badges">
-        <img src="https://img.shields.io/github/actions/workflow/status/never-dry/NeverDry/security.yml?label=security&style=flat-square" alt="Security">
-        <img src="https://img.shields.io/github/v/release/never-dry/NeverDry?style=flat-square" alt="Release">
-        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2Fbadges%2Fdownloads.json&style=flat-square" alt="Downloads of the most downloaded release">
-        <img src="https://img.shields.io/github/downloads/never-dry/NeverDry/latest/total?label=downloads&color=41BDF5&style=flat-square" alt="Downloads">
-        <img src="https://img.shields.io/badge/HACS-Default-41BDF5?style=flat-square" alt="HACS">
-        <a href="https://community.home-assistant.io/t/neverdry-smart-irrigation-that-calculates-when-and-how-long-to-water-fao-56-water-balance-hacs/1013835"><img src="https://img.shields.io/badge/support-HA%20Community-41BDF5?style=flat-square&logo=home-assistant&logoColor=white" alt="HA Community support"></a>
+        <img src="https://img.shields.io/github/actions/workflow/status/never-dry/NeverDry/security.yml?label=security&style=flat-square" alt="Security" width="104" height="20">
+        <img src="https://img.shields.io/github/v/release/never-dry/NeverDry?style=flat-square" alt="Release" width="102" height="20">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnever-dry.github.io%2FNeverDry%2Fbadges%2Fdownloads.json&style=flat-square" alt="Downloads of the most downloaded release" width="234" height="20">
+        <img src="https://img.shields.io/github/downloads/never-dry/NeverDry/latest/total?label=downloads&color=41BDF5&style=flat-square" alt="Downloads" width="92" height="20">
+        <img src="https://img.shields.io/badge/HACS-Default-41BDF5?style=flat-square" alt="HACS" width="90" height="20">
+        <a href="https://community.home-assistant.io/t/neverdry-smart-irrigation-that-calculates-when-and-how-long-to-water-fao-56-water-balance-hacs/1013835"><img src="https://img.shields.io/badge/support-HA%20Community-41BDF5?style=flat-square&logo=home-assistant&logoColor=white" alt="HA Community support" width="163" height="20"></a>
     </div>
     <!-- Primary CTA: one-click HACS install (moved up from the Install section, 2026-07-22) -->
     <a class="cta" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=never-dry&repository=NeverDry&category=integration"
        data-vmtrc="InstallClicked" data-vmtrc-location="hero"
        style="font-size: 1.2em; padding: 14px 40px;">Install in Home Assistant</a>
-    <div style="margin-top: 0.6em; font-size: 0.9em; opacity: 0.8;">One click via HACS — NeverDry is in the default repository.</div>
+    <div style="margin-top: 0.6em; font-size: 0.9em; opacity: 0.8;">One click via HACS - NeverDry is in the default repository.</div>
 
-    <!-- Value props: 3 benefici in riga, compatti (niente card nell'hero — 2026-07-22) -->
+    <!-- Value props: 3 benefici in riga, compatti (niente card nell'hero - 2026-07-22) -->
     <div style="margin-top: 1.3em; display: flex; flex-wrap: wrap; gap: 0.6em 1.6em; justify-content: center; font-size: 1.05em; line-height: 1.35;">
         <div>🌡️&nbsp;&nbsp;Waters only when the soil is dry</div>
         <div>🛡️&nbsp;&nbsp;The valve always closes</div>
@@ -130,22 +127,22 @@
             <div class="feature-card">
                 <div class="icon">🌡️</div>
                 <h3>Knows when your garden is thirsty</h3>
-                <p>Tracks evaporation and rainfall day by day. When the soil deficit crosses your threshold, NeverDry opens the valve for exactly as long as needed — no fixed timers, no guessing.</p>
+                <p>Tracks evaporation and rainfall day by day. When the soil deficit crosses your threshold, NeverDry opens the valve for exactly as long as needed - no fixed timers, no guessing.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">🛡️</div>
                 <h3>The valve always closes</h3>
-                <p>If a valve stops responding, NeverDry keeps trying &mdash; six attempts, with a growing pause between them &mdash; and only then blocks that zone and shows a warning on your dashboard. Three independent safety mechanisms make sure water can't run indefinitely.</p>
+                <p>If a valve stops responding, NeverDry keeps trying - six attempts, with a growing pause between them - and only then blocks that zone and shows a warning on your dashboard. Three independent safety mechanisms make sure water can't run indefinitely.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">🌱</div>
                 <h3>Each plant gets its own schedule</h3>
-                <p>Lawn, roses, citrus, succulents — 10 plant profiles with seasonal variation. Your lawn drinks more in July than your lavender ever will. NeverDry handles that automatically.</p>
+                <p>Lawn, roses, citrus, succulents - 10 plant profiles with seasonal variation. Your lawn drinks more in July than your lavender ever will. NeverDry handles that automatically.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">📊</div>
                 <h3>Zones are independent</h3>
-                <p>The rose bed and the lawn dry out at different rates. Each zone tracks its own soil water deficit separately — no more one-schedule-fits-all.</p>
+                <p>The rose bed and the lawn dry out at different rates. Each zone tracks its own soil water deficit separately - no more one-schedule-fits-all.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">🌧️</div>
@@ -155,12 +152,12 @@
             <div class="feature-card">
                 <div class="icon">🖐️</div>
                 <h3>Grabbed the hose? Just tell NeverDry</h3>
-                <p>Open the valve manually, use the physical button, or water by hand — "Mark as irrigated" keeps the deficit accurate no matter how you watered.</p>
+                <p>Open the valve manually, use the physical button, or water by hand - "Mark as irrigated" keeps the deficit accurate no matter how you watered.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">💧</div>
                 <h3>Water from anywhere</h3>
-                <p>Dashboard button, automation, scheduler, physical valve — NeverDry always tracks what happened and updates the deficit accordingly.</p>
+                <p>Dashboard button, automation, scheduler, physical valve - NeverDry always tracks what happened and updates the deficit accordingly.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">⚙️</div>
@@ -170,7 +167,7 @@
             <div class="feature-card">
                 <div class="icon">🔄</div>
                 <h3>Update in one click</h3>
-                <p>HACS notifies you when a new version is available. One click, restart HA — your settings and history are always preserved.</p>
+                <p>HACS notifies you when a new version is available. One click, restart HA - your settings and history are always preserved.</p>
             </div>
             <div class="feature-card">
                 <div class="icon">📡</div>
@@ -180,7 +177,7 @@
             <div class="feature-card">
                 <div class="icon">🌍</div>
                 <h3>Metric &amp; imperial</h3>
-                <p>All sensors declare the correct Home Assistant device class — deficit in mm or inches, volumes in litres or gallons, flow rate in L/min or gal/min. Units follow your HA system preference automatically.</p>
+                <p>All sensors declare the correct Home Assistant device class - deficit in mm or inches, volumes in litres or gallons, flow rate in L/min or gal/min. Units follow your HA system preference automatically.</p>
             </div>
         </div>
     </div>
@@ -191,9 +188,9 @@
 <section style="padding: 60px 0;">
     <div class="container">
         <h2 style="text-align: center; font-size: 2em; margin-bottom: 0.5em; color: var(--accent);">See every zone at a glance</h2>
-        <p style="max-width: 700px; margin: 1em auto; text-align: center;">NeverDry ships a custom Lovelace card &mdash; <strong>auto-registered</strong> on install, with no resource to add. It shows up in the &ldquo;Add card&rdquo; picker as <em>NeverDry Zone Card</em>: choose a zone to see its valve status, deficit vs threshold, next and last session, totals, parameters, and action buttons &mdash; all in one place.</p>
+        <p style="max-width: 700px; margin: 1em auto; text-align: center;">NeverDry ships a custom Lovelace card - <strong>auto-registered</strong> on install, with no resource to add. It shows up in the "Add card" picker as <em>NeverDry Zone Card</em>: choose a zone to see its valve status, deficit vs threshold, next and last session, totals, parameters, and action buttons - all in one place.</p>
         <p style="text-align: center; margin-top: 1.5em;">
-            <img src="https://raw.githubusercontent.com/never-dry/NeverDry/main/docs/assets/zone-card.png" alt="NeverDry Zone Card" style="max-width: 300px; width: 100%; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.18);">
+            <img src="https://raw.githubusercontent.com/never-dry/NeverDry/main/docs/assets/zone-card.png" alt="NeverDry Zone Card" width="1290" height="2796" style="height: auto; max-width: 300px; width: 100%; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.18);">
         </p>
     </div>
 </section>
@@ -201,11 +198,11 @@
 <section class="how-it-works">
     <div class="container">
         <h2>How It Works</h2>
-        <p>NeverDry keeps track of how much water your soil has lost to heat and evaporation, and how much it got back from rain. The difference is the <strong>soil water deficit</strong> — how thirsty your garden is.</p>
+        <p>NeverDry keeps track of how much water your soil has lost to heat and evaporation, and how much it got back from rain. The difference is the <strong>soil water deficit</strong> - how thirsty your garden is.</p>
         <div class="formula">
             1 mm of deficit = 1 litre of water needed per square metre
         </div>
-        <p>When the deficit crosses your threshold, NeverDry opens the valve for exactly as long as needed to fill it back up. When it rains, the deficit drops automatically. After irrigation, it resets. Plants that drink more in summer get a higher multiplier — so the lawn and the lavender each get the right amount, without any manual adjustment.</p>
+        <p>When the deficit crosses your threshold, NeverDry opens the valve for exactly as long as needed to fill it back up. When it rains, the deficit drops automatically. After irrigation, it resets. Plants that drink more in summer get a higher multiplier - so the lawn and the lavender each get the right amount, without any manual adjustment.</p>
         <p style="margin-top: 1.5em; font-size: 0.9em; opacity: 0.7;">For the technically curious, the full water balance formula is in the <a href="https://github.com/never-dry/NeverDry#scientific-background">README</a>.</p>
     </div>
 </section>
@@ -245,9 +242,9 @@
         <h2>Installation</h2>
         <div class="install-steps">
             <div style="text-align: center; margin-bottom: 2em; padding: 24px; background: var(--accent-light); border-radius: 12px;">
-                <p style="font-size: 1.05em; margin-bottom: 1em; font-weight: 600;">Install directly from HACS — one click:</p>
+                <p style="font-size: 1.05em; margin-bottom: 1em; font-weight: 600;">Install directly from HACS - one click:</p>
                 <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=never-dry&repository=NeverDry&category=integration" data-vmtrc="InstallClicked" data-vmtrc-location="install-section">
-                    <img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open NeverDry in HACS." height="48">
+                    <img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open NeverDry in HACS." width="349" height="48">
                 </a>
             </div>
             <h3>Via HACS (manual steps)</h3>
@@ -274,50 +271,50 @@
         <h2>What's new in v0.10.9</h2>
         <p style="margin-bottom: 1.2em; opacity: 0.8;">Released 2026-07-05</p>
         <ul style="max-width: 680px; margin: 0 auto; text-align: left; line-height: 2;">
-            <li><strong>Zone Card fixed on HA 2026.2+</strong> — Home Assistant renamed an internal Lovelace attribute, so the card resource was never registered and "Custom element doesn't exist: never-dry-zone-card" was back. Now detected correctly on all HA versions, with clear log messages if registration falls back.</li>
-            <li><strong>Deficit settles on delivery timeout</strong> — if the flow sensor reads zero while the valve is actually watering, the delivered volume is now estimated from the configured flow rate, so the deficit no longer stays stuck (and irrigation no longer repeats endlessly).</li>
-            <li><strong>Config sanity guards</strong> — unusual zone values (area below 5 m², flow rate below 10 L/h or above 1800 L/h — usually a L/min vs L/h mix-up) now ask for confirmation before saving, and a new "Check configured zones" menu entry audits existing zones.</li>
+            <li><strong>Zone Card fixed on HA 2026.2+</strong> - Home Assistant renamed an internal Lovelace attribute, so the card resource was never registered and "Custom element doesn't exist: never-dry-zone-card" was back. Now detected correctly on all HA versions, with clear log messages if registration falls back.</li>
+            <li><strong>Deficit settles on delivery timeout</strong> - if the flow sensor reads zero while the valve is actually watering, the delivered volume is now estimated from the configured flow rate, so the deficit no longer stays stuck (and irrigation no longer repeats endlessly).</li>
+            <li><strong>Config sanity guards</strong> - unusual zone values (area below 5 m², flow rate below 10 L/h or above 1800 L/h - usually a L/min vs L/h mix-up) now ask for confirmation before saving, and a new "Check configured zones" menu entry audits existing zones.</li>
         </ul>
         <p style="margin-top: 1.5em; font-size: 0.9em; opacity: 0.7;"><a href="https://github.com/never-dry/NeverDry/releases/tag/v0.10.9">Full release notes on GitHub →</a></p>
         <details style="max-width: 680px; margin: 1.5em auto 0; text-align: left; opacity: 0.7; font-size: 0.9em;">
-            <summary style="cursor: pointer;">v0.10.8 — 2026-07-04</summary>
+            <summary style="cursor: pointer;">v0.10.8 - 2026-07-04</summary>
             <ul style="line-height: 2; margin-top: 0.5em;">
-                <li><strong>Zone Card loads reliably</strong> — the card is now registered as a real Lovelace resource, fixing "Custom element doesn't exist: never-dry-zone-card" after install or upgrade (no more manual cache clearing).</li>
-                <li><strong>Card editor hardening</strong> — zone names are now HTML-escaped in the card editor.</li>
+                <li><strong>Zone Card loads reliably</strong> - the card is now registered as a real Lovelace resource, fixing "Custom element doesn't exist: never-dry-zone-card" after install or upgrade (no more manual cache clearing).</li>
+                <li><strong>Card editor hardening</strong> - zone names are now HTML-escaped in the card editor.</li>
             </ul>
         </details>
         <details style="max-width: 680px; margin: 1.5em auto 0; text-align: left; opacity: 0.7; font-size: 0.9em;">
-            <summary style="cursor: pointer;">v0.10.7 — 2026-06-27</summary>
+            <summary style="cursor: pointer;">v0.10.7 - 2026-06-27</summary>
             <ul style="line-height: 2; margin-top: 0.5em;">
-                <li><strong>NeverDry Zone Card</strong> — a built-in Lovelace card that shows every zone at a glance: deficit, status chips, next watering, and flow rate. Bundled with the integration and registered automatically — no manual resource setup.</li>
-                <li><strong>Flow rate in L/h (gal/h imperial)</strong> — display and enter zone flow rate in litres per hour; converts automatically to US-customary units.</li>
-                <li><strong>Full SI &amp; imperial support</strong> — units convert consistently across the config flow and at runtime, including rain in inches.</li>
-                <li><strong>Per-zone valve stop</strong> — stop a single zone on demand, with proper handling when a valve is closed externally or by hardware.</li>
-                <li><strong>More accurate water accounting</strong> — fixed volume/deficit accounting and rain-event de-duplication.</li>
-                <li><strong>Clean uninstall</strong> — zone devices are removed on deletion, unblocking integration uninstall.</li>
+                <li><strong>NeverDry Zone Card</strong> - a built-in Lovelace card that shows every zone at a glance: deficit, status chips, next watering, and flow rate. Bundled with the integration and registered automatically - no manual resource setup.</li>
+                <li><strong>Flow rate in L/h (gal/h imperial)</strong> - display and enter zone flow rate in litres per hour; converts automatically to US-customary units.</li>
+                <li><strong>Full SI &amp; imperial support</strong> - units convert consistently across the config flow and at runtime, including rain in inches.</li>
+                <li><strong>Per-zone valve stop</strong> - stop a single zone on demand, with proper handling when a valve is closed externally or by hardware.</li>
+                <li><strong>More accurate water accounting</strong> - fixed volume/deficit accounting and rain-event de-duplication.</li>
+                <li><strong>Clean uninstall</strong> - zone devices are removed on deletion, unblocking integration uninstall.</li>
             </ul>
         </details>
         <details style="max-width: 680px; margin: 1.5em auto 0; text-align: left; opacity: 0.7; font-size: 0.9em;">
-            <summary style="cursor: pointer;">v0.10.2 — 2026-06-24</summary>
+            <summary style="cursor: pointer;">v0.10.2 - 2026-06-24</summary>
             <ul style="line-height: 2; margin-top: 0.5em;">
-                <li><strong>Official HACS listing</strong> — NeverDry is now in the HACS default repository list; install with one click, no custom repository needed.</li>
-                <li><strong>Delivery mode guard</strong> — if the sensor entity linked to a zone is removed, NeverDry automatically downgrades the delivery mode to avoid an invalid configuration.</li>
+                <li><strong>Official HACS listing</strong> - NeverDry is now in the HACS default repository list; install with one click, no custom repository needed.</li>
+                <li><strong>Delivery mode guard</strong> - if the sensor entity linked to a zone is removed, NeverDry automatically downgrades the delivery mode to avoid an invalid configuration.</li>
             </ul>
         </details>
         <details style="max-width: 680px; margin: 1.5em auto 0; text-align: left; opacity: 0.7; font-size: 0.9em;">
-            <summary style="cursor: pointer;">v0.10.1 — 2026-06-21</summary>
+            <summary style="cursor: pointer;">v0.10.1 - 2026-06-21</summary>
             <ul style="line-height: 2; margin-top: 0.5em;">
-                <li><strong>Fahrenheit temperature input</strong> — NeverDry now auto-converts °F→°C when your HA system is configured in imperial units; no template sensor needed.</li>
+                <li><strong>Fahrenheit temperature input</strong> - NeverDry now auto-converts °F→°C when your HA system is configured in imperial units; no template sensor needed.</li>
             </ul>
         </details>
         <details style="max-width: 680px; margin: 1.5em auto 0; text-align: left; opacity: 0.7; font-size: 0.9em;">
-            <summary style="cursor: pointer;">v0.10.0 — 2026-06-20</summary>
+            <summary style="cursor: pointer;">v0.10.0 - 2026-06-20</summary>
             <ul style="line-height: 2; margin-top: 0.5em;">
-                <li><strong>Metric &amp; imperial units</strong> — all sensors now declare the proper HA device class; deficit, volume, flow rate, and ET rate convert automatically to your system preference.</li>
-                <li><strong><code>never_dry.set_deficit</code> service</strong> — set the water deficit of one zone (or all zones) to an arbitrary mm value; useful for manual calibration and testing.</li>
-                <li><strong>Controller reload reliability</strong> — eliminated duplicate controller instances after HA reload; graceful shutdown ensures the valve closes and session data is saved before a new instance starts.</li>
-                <li><strong>No more spurious notifications</strong> — fixed "Manual irrigation detected" false alarm when NeverDry itself closes a valve; fixed CRITICAL alert firing even when valve recovery succeeds.</li>
-                <li><strong>Config flow guard</strong> — saving zone settings without actual changes no longer triggers an unnecessary integration reload.</li>
+                <li><strong>Metric &amp; imperial units</strong> - all sensors now declare the proper HA device class; deficit, volume, flow rate, and ET rate convert automatically to your system preference.</li>
+                <li><strong><code>never_dry.set_deficit</code> service</strong> - set the water deficit of one zone (or all zones) to an arbitrary mm value; useful for manual calibration and testing.</li>
+                <li><strong>Controller reload reliability</strong> - eliminated duplicate controller instances after HA reload; graceful shutdown ensures the valve closes and session data is saved before a new instance starts.</li>
+                <li><strong>No more spurious notifications</strong> - fixed "Manual irrigation detected" false alarm when NeverDry itself closes a valve; fixed CRITICAL alert firing even when valve recovery succeeds.</li>
+                <li><strong>Config flow guard</strong> - saving zone settings without actual changes no longer triggers an unnecessary integration reload.</li>
             </ul>
         </details>
     </div>
@@ -336,7 +333,7 @@
 <!-- Support -->
 <section class="support">
     <h2>Support the Project</h2>
-    <p>NeverDry is free and open source — the best way to support it is to star it and spread the word:</p>
+    <p>NeverDry is free and open source - the best way to support it is to star it and spread the word:</p>
     <div style="display: flex; gap: 1em; justify-content: center; flex-wrap: wrap;">
         <a class="kofi-btn" style="background: #24292e;" href="https://github.com/never-dry/NeverDry/stargazers">&#11088; Star on GitHub</a>
     </div>
@@ -370,7 +367,8 @@
 
 <!-- Footer -->
 <footer>
-    <p>NeverDry &mdash; MIT License &mdash; Made with 🌱 by <a href="https://github.com/drake69">drake69</a></p>
+    <p>NeverDry - MIT License - Made with 🌱 by <a href="https://github.com/drake69">drake69</a></p>
+    <p class="site-provenance"><a href="/NeverDry/privacy.html">Privacy</a> (EN) &middot; Last updated {{SITE_UPDATED}} &middot; v{{SITE_VERSION}} &middot; <a href="https://github.com/never-dry/NeverDry/tree/main/docs/gh-pages">source</a></p>
 </footer>
 
 </body>
