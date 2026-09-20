@@ -20,7 +20,7 @@
           "temperature_sensor": "Sensor de temperatura exterior en °C",
           "rain_sensor": "Pluviómetro o sensor de precipitación de la estación meteorológica",
           "rain_sensor_type": "Cómo informa tu sensor de lluvia de la precipitación. Por evento: mm por evento (pluviómetro de cazoletas, recomendado). Total diario: mm acumulados desde medianoche (estación meteorológica)",
-          "alpha": "Lo usa **solo** el método de balance Simple (lineal): convierte un exceso de temperatura en milímetros de evapotranspiración, así que lleva dentro todo lo que ese método no mide. Hargreaves-Samani y Penman-Monteith lo calculan a partir de la física y no hacen ningún caso de esta casilla: si está activo uno de ellos, cambiarla no tiene ningún efecto. Ajústalo en una zona a pleno sol y en terreno abierto: en una zona en sombra estarías cociendo la sombra de esa zona dentro de una constante válida para toda la instalación, y todas las demás zonas la heredarían. Las diferencias entre zonas pertenecen a la exposición de cada una, no a este campo. Empieza en 0.22 y ajusta después de observar tu jardín una semana",
+          "alpha": "Lo usa **solo** el método de balance Simple (lineal): convierte un exceso de temperatura en milímetros de evapotranspiración, así que lleva dentro todo lo que ese método no mide. Hargreaves-Samani y Penman-Monteith lo calculan a partir de la física y no hacen ningún caso de esta casilla: si está activo uno de ellos, cambiarla no tiene ningún efecto. Ajústalo en una zona a pleno sol y en terreno abierto: en una zona en sombra estarías cociendo la sombra de esa zona dentro de una constante válida para toda la instalación, y todas las demás zonas la heredarían. Las diferencias entre zonas pertenecen a la exposición de cada una, no a este campo. Empieza en 0,22 y ajusta después de observar tu jardín una semana",
           "t_base": "La usa **solo** el método de balance Simple (lineal): la temperatura por debajo de la cual supone evapotranspiración nula, que es lo que impide que una recta prediga pérdida de agua en un día frío. Hargreaves-Samani lleva en su lugar una constante fija propia y no hace caso de esta casilla; Penman-Monteith no necesita ninguna. Así que si está activo uno de los dos, cambiarla no tiene ningún efecto",
           "d_max": "Límite superior del índice de déficit",
           "humidity_sensor": "Opcional. Junto con el viento y la radiación desbloquea Penman-Monteith.",
@@ -58,21 +58,21 @@
               "plant_family": "Fija la curva estacional del Kc para lo que crece aquí. Elige Personalizado para indicar un Kc fijo abajo.",
               "kc": "Se usa solo cuando la familia de plantas está en Personalizado. Con cualquier otra familia vale la curva estacional y este campo se ignora.",
               "exposure": "Cuánto sol y viento recibe esta zona comparada con un sitio abierto. Multiplica el Kc, así la zona conserva su curva estacional en lugar de quedarse fija en un solo valor. Elige Personalizado para indicar tu propio factor abajo.",
-              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0.1 a 1.5; por encima de 1.0 para zonas que se secan más rápido que el terreno abierto.",
-              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raices y a medio camino entre dos goteros. Por si sola se muestra junto a las cifras de la zona y nada mas cambia. Dale la profundidad de raices de abajo y esta zona regara segun lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para humedo, que es lo que publican las sondas de jardin. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo mas seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fabrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, asi que un suelo lleno no marca realmente 100. Los milimetros que resultan estan por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo mas de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolveria estan aqui: {soil_doc}",
-              "root_depth_m": "Profundidad de la zona de raices de la que habla la sonda de arriba, y el unico numero de aqui que ninguna tabla contiene: un cesped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellenalo y esta zona regara por su sonda en lugar de por la estimacion meteorologica. Dejalo vacio y la sonda seguira siendo una lectura mostrada junto a la estimacion. La lectura 0-100 se interpreta como cuanta del agua que este suelo puede retener de verdad sigue presente, asi que la profundidad y el suelo de abajo son los que la convierten en milimetros.",
-              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene despues de drenar, como fraccion: aproximadamente 0.15 para arena, 0.25 para suelo franco, 0.35 para arcilla. Se usa para la estimacion meteorologica; una zona con suelo Personalizado no puede ser regada por su sonda.",
-              "soil_type": "Opcional. De que esta hecho el terreno de esta zona. Aporta cuanta agua retiene el suelo y cuanta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos numeros. Dejado en Automatico se asume un suelo medio, que sirve para la mayoria de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
+              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0,1 a 1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno abierto.",
+              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raíces y a medio camino entre dos goteros. Por sí sola se muestra junto a las cifras de la zona y nada más cambia. Dale la profundidad de raíces de abajo y esta zona regará según lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para húmedo, que es lo que publican las sondas de jardín. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo más seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fábrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, así que un suelo lleno no marca realmente 100. Los milímetros que resultan están por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo más de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolvería están aquí: {soil_doc}",
+              "root_depth_m": "Profundidad de la zona de raíces de la que habla la sonda de arriba, y el único número de aquí que ninguna tabla contiene: un césped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellénalo y esta zona regará por su sonda en lugar de por la estimación meteorológica. Déjalo vacío y la sonda seguirá siendo una lectura mostrada junto a la estimación. La lectura 0-100 se interpreta como cuánta del agua que este suelo puede retener de verdad sigue presente, así que la profundidad y el suelo de abajo son los que la convierten en milímetros.",
+              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene después de drenar, como fracción: aproximadamente 0,15 para arena, 0,25 para suelo franco, 0,35 para arcilla. Se usa para la estimación meteorológica; una zona con suelo Personalizado no puede ser regada por su sonda.",
+              "soil_type": "Opcional. De qué está hecho el terreno de esta zona. Aporta cuánta agua retiene el suelo y cuánta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos números. Dejado en Automático se asume un suelo medio, que sirve para la mayoría de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
             }
           },
           "valve_and_pipe": {
             "name": "Válvula e instalación",
-            "description": "Qué la riega: la válvula, cómo se mide la entrega y la instalación de riego.",
+            "description": "Qué la riega: la válvula, cómo se mide el suministro y la instalación de riego.",
             "data": {
               "valve": "Interruptor de la válvula (opcional)",
-              "delivery_mode": "Modo de entrega del agua",
+              "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de entrega: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada (prevalece sobre el valor del tipo de instalación)",
@@ -80,13 +80,13 @@
             },
             "data_description": {
               "valve": "La entidad interruptor que controla la válvula de riego de esta zona. Déjalo vacío para el modo de solo seguimiento (sin válvula)",
-              "delivery_mode": "Cómo entrega el agua tu válvula. Caudal estimado: válvula simple on/off, la duración se calcula a partir del caudal. Caudalímetro: válvula con sensor de caudal, se cierra al alcanzar el volumen objetivo. Volumen preestablecido: válvula inteligente que acepta un volumen objetivo y se cierra por sí sola.",
-              "flow_rate_lpm": "La suma del caudal nominal de todo lo que riega esta zona (aspersores, goteros, microaspersores) en litros por hora (gal/h en unidades imperiales). Tómala de la ficha de los emisores o de tu proyecto de riego: no hace falta medirla. Es lo que la zona se construyó para entregar, y es obligatoria: sin ella no hay forma de convertir un volumen en una duración de riego. Lo que la zona entrega de verdad se mide aparte, a partir de los riegos reales, y la diferencia entre las dos merece atención.",
-              "flow_meter_sensor": "Sirven los dos, y NeverDry los distingue por la unidad de medida. Un contador acumulativo (L, gal, m³) se lee antes y después del riego y la diferencia es el volumen entregado: es el más preciso de los dos, porque no depende de cada cuánto informa la válvula. Un caudal instantáneo (L/min, L/h, m³/h, gal/min, gal/h) se integra en cambio a lo largo del riego, así que la frecuencia con la que la válvula informa de su caudal decide lo bueno que es el número. Obligatorio cuando el modo de entrega es el de caudalímetro.",
-              "volume_entity": "Entidad numérica de la válvula inteligente que acepta un volumen objetivo en litros. Obligatoria cuando el modo de entrega deja la dosificación a la válvula.",
-              "system_type": "Fija la eficiencia de la zona (goteo 0.92, microaspersores 0.80, pop-up 0.68, manual 0.55). Elige Personalizado para indicar la tuya abajo.",
+              "delivery_mode": "Cómo suministra el agua tu válvula. Caudal estimado: válvula simple on/off, la duración se calcula a partir del caudal. Caudalímetro: válvula con sensor de caudal, se cierra al alcanzar el volumen objetivo. Volumen preestablecido: válvula inteligente que acepta un volumen objetivo y se cierra por sí sola.",
+              "flow_rate_lpm": "La suma del caudal nominal de todo lo que riega esta zona (aspersores, goteros, microaspersores) en litros por hora (gal/h en unidades imperiales). Tómala de la ficha de los emisores o de tu proyecto de riego: no hace falta medirla. Es lo que la zona se construyó para suministrar, y es obligatoria: sin ella no hay forma de convertir un volumen en una duración de riego. Lo que la zona suministra de verdad se mide aparte, a partir de los riegos reales, y la diferencia entre las dos merece atención.",
+              "flow_meter_sensor": "Sirven los dos, y NeverDry los distingue por la unidad de medida. Un contador acumulativo (L, gal, m³) se lee antes y después del riego y la diferencia es el volumen suministrado: es el más preciso de los dos, porque no depende de cada cuánto informa la válvula. Un caudal instantáneo (L/min, L/h, m³/h, gal/min, gal/h) se integra en cambio a lo largo del riego, así que la frecuencia con la que la válvula informa de su caudal decide lo bueno que es el número. Obligatorio cuando el modo de suministro es el de caudalímetro.",
+              "volume_entity": "Entidad numérica de la válvula inteligente que acepta un volumen objetivo en litros. Obligatoria cuando el modo de suministro deja la dosificación a la válvula.",
+              "system_type": "Fija la eficiencia de la zona (goteo 0,92, microaspersores 0,80, pop-up 0,68, manual 0,55). Elige Personalizado para indicar la tuya abajo.",
               "efficiency": "Se usa solo cuando el tipo de instalación está en Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo dice.",
-              "delivery_timeout": "Tiempo máximo de espera de una entrega medida o dosificada por la válvula antes de forzar su cierre (límite de seguridad)."
+              "delivery_timeout": "Tiempo máximo de espera de un suministro medido o dosificado por la válvula antes de forzar su cierre (límite de seguridad)."
             }
           },
           "scheduling": {
@@ -108,7 +108,7 @@
         "title": "Valores poco habituales en esta zona",
         "description": "La zona \"{zone_name}\" tiene valores fuera del intervalo habitual:\n\n{warnings}\n\nA menudo significa una confusión de unidades (por ejemplo, caudal indicado en L/min en lugar de L/h). Marca la casilla para guardar de todos modos, o envía sin marcarla para volver atrás y corregir los valores.",
         "data": {
-          "confirm": "Los valores son correctos, guarda la zona"
+          "confirm": "Los valores son correctos, guardar la zona"
         }
       },
       "add_another": {
@@ -122,9 +122,9 @@
     "error": {
       "zone_name_too_long": "El nombre de la zona es demasiado largo (máximo 64 caracteres)",
       "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
-      "flow_rate_required": "Hace falta el caudal de diseño: el modo de entrega que has elegido calcula con él la duración del riego.",
-      "flow_meter_required": "Hace falta el sensor de entrega, un contador acumulativo o un caudal: el modo de entrega que has elegido cierra la válvula al volumen medido.",
-      "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de entrega que has elegido deja la dosificación a la válvula misma.",
+      "flow_rate_required": "Hace falta el caudal de diseño: el modo de suministro que has elegido calcula con él la duración del riego.",
+      "flow_meter_required": "Hace falta el sensor de suministro, un contador acumulativo o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
+      "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de suministro que has elegido deja la dosificación a la válvula misma.",
       "zone_already_exists": "Ya existe una zona con este nombre",
       "efficiency_required": "Indica una eficiencia: el tipo de instalación está en Personalizado, que toma su valor de ese campo",
       "kc_required": "Indica un Kc: la familia de plantas está en Personalizado, que toma su valor de ese campo",
@@ -197,28 +197,28 @@
               "plant_family": "Fija la curva estacional del Kc para lo que crece aquí. Elige Personalizado para indicar un Kc fijo abajo.",
               "kc": "Se usa solo cuando la familia de plantas está en Personalizado. Con cualquier otra familia vale la curva estacional y este campo se ignora.",
               "exposure": "Cuánto sol y viento recibe esta zona comparada con un sitio abierto. Multiplica el Kc, así la zona conserva su curva estacional en lugar de quedarse fija en un solo valor. Elige Personalizado para indicar tu propio factor abajo.",
-              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0.1 a 1.5; por encima de 1.0 para zonas que se secan más rápido que el terreno abierto.",
-              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raices y a medio camino entre dos goteros. Por si sola se muestra junto a las cifras de la zona y nada mas cambia. Dale la profundidad de raices de abajo y esta zona regara segun lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para humedo, que es lo que publican las sondas de jardin. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo mas seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fabrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, asi que un suelo lleno no marca realmente 100. Los milimetros que resultan estan por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo mas de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolveria estan aqui: {soil_doc}",
-              "root_depth_m": "Profundidad de la zona de raices de la que habla la sonda de arriba, y el unico numero de aqui que ninguna tabla contiene: un cesped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellenalo y esta zona regara por su sonda en lugar de por la estimacion meteorologica. Dejalo vacio y la sonda seguira siendo una lectura mostrada junto a la estimacion. La lectura 0-100 se interpreta como cuanta del agua que este suelo puede retener de verdad sigue presente, asi que la profundidad y el suelo de abajo son los que la convierten en milimetros.",
-              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene despues de drenar, como fraccion: aproximadamente 0.15 para arena, 0.25 para suelo franco, 0.35 para arcilla. Se usa para la estimacion meteorologica; una zona con suelo Personalizado no puede ser regada por su sonda.",
-              "soil_type": "Opcional. De que esta hecho el terreno de esta zona. Aporta cuanta agua retiene el suelo y cuanta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos numeros. Dejado en Automatico se asume un suelo medio, que sirve para la mayoria de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
+              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0,1 a 1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno abierto.",
+              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raíces y a medio camino entre dos goteros. Por sí sola se muestra junto a las cifras de la zona y nada más cambia. Dale la profundidad de raíces de abajo y esta zona regará según lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para húmedo, que es lo que publican las sondas de jardín. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo más seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fábrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, así que un suelo lleno no marca realmente 100. Los milímetros que resultan están por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo más de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolvería están aquí: {soil_doc}",
+              "root_depth_m": "Profundidad de la zona de raíces de la que habla la sonda de arriba, y el único número de aquí que ninguna tabla contiene: un césped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellénalo y esta zona regará por su sonda en lugar de por la estimación meteorológica. Déjalo vacío y la sonda seguirá siendo una lectura mostrada junto a la estimación. La lectura 0-100 se interpreta como cuánta del agua que este suelo puede retener de verdad sigue presente, así que la profundidad y el suelo de abajo son los que la convierten en milímetros.",
+              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene después de drenar, como fracción: aproximadamente 0,15 para arena, 0,25 para suelo franco, 0,35 para arcilla. Se usa para la estimación meteorológica; una zona con suelo Personalizado no puede ser regada por su sonda.",
+              "soil_type": "Opcional. De qué está hecho el terreno de esta zona. Aporta cuánta agua retiene el suelo y cuánta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos números. Dejado en Automático se asume un suelo medio, que sirve para la mayoría de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
             }
           },
           "valve_and_pipe": {
             "name": "Válvula e instalación",
-            "description": "Qué la riega: la válvula, cómo se mide la entrega y la instalación de riego.",
+            "description": "Qué la riega: la válvula, cómo se mide el suministro y la instalación de riego.",
             "data": {
               "valve": "Interruptor de la válvula (opcional)",
-              "delivery_mode": "Modo de entrega del agua",
+              "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de entrega: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada",
               "delivery_timeout": "Tiempo máximo de seguridad"
             },
             "data_description": {
-              "system_type": "Fija la eficiencia de la zona (goteo 0.92, microaspersores 0.80, pop-up 0.68, manual 0.55). Elige Personalizado para indicar la tuya abajo.",
+              "system_type": "Fija la eficiencia de la zona (goteo 0,92, microaspersores 0,80, pop-up 0,68, manual 0,55). Elige Personalizado para indicar la tuya abajo.",
               "efficiency": "Se usa solo cuando el tipo de instalación está en Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo dice."
             }
           },
@@ -237,7 +237,7 @@
         "title": "Valores poco habituales en esta zona",
         "description": "La zona \"{zone_name}\" tiene valores fuera del intervalo habitual:\n\n{warnings}\n\nA menudo significa una confusión de unidades (por ejemplo, caudal indicado en L/min en lugar de L/h). Marca la casilla para guardar de todos modos, o envía sin marcarla para volver atrás y corregir los valores.",
         "data": {
-          "confirm": "Los valores son correctos, guarda la zona"
+          "confirm": "Los valores son correctos, guardar la zona"
         }
       },
       "edit_zone": {
@@ -270,28 +270,28 @@
               "plant_family": "Fija la curva estacional del Kc para lo que crece aquí. Elige Personalizado para indicar un Kc fijo abajo.",
               "kc": "Se usa solo cuando la familia de plantas está en Personalizado. Con cualquier otra familia vale la curva estacional y este campo se ignora.",
               "exposure": "Cuánto sol y viento recibe esta zona comparada con un sitio abierto. Multiplica el Kc, así la zona conserva su curva estacional en lugar de quedarse fija en un solo valor. Elige Personalizado para indicar tu propio factor abajo.",
-              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0.1 a 1.5; por encima de 1.0 para zonas que se secan más rápido que el terreno abierto.",
-              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raices y a medio camino entre dos goteros. Por si sola se muestra junto a las cifras de la zona y nada mas cambia. Dale la profundidad de raices de abajo y esta zona regara segun lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para humedo, que es lo que publican las sondas de jardin. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo mas seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fabrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, asi que un suelo lleno no marca realmente 100. Los milimetros que resultan estan por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo mas de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolveria estan aqui: {soil_doc}",
-              "root_depth_m": "Profundidad de la zona de raices de la que habla la sonda de arriba, y el unico numero de aqui que ninguna tabla contiene: un cesped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellenalo y esta zona regara por su sonda en lugar de por la estimacion meteorologica. Dejalo vacio y la sonda seguira siendo una lectura mostrada junto a la estimacion. La lectura 0-100 se interpreta como cuanta del agua que este suelo puede retener de verdad sigue presente, asi que la profundidad y el suelo de abajo son los que la convierten en milimetros.",
-              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene despues de drenar, como fraccion: aproximadamente 0.15 para arena, 0.25 para suelo franco, 0.35 para arcilla. Se usa para la estimacion meteorologica; una zona con suelo Personalizado no puede ser regada por su sonda.",
-              "soil_type": "Opcional. De que esta hecho el terreno de esta zona. Aporta cuanta agua retiene el suelo y cuanta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos numeros. Dejado en Automatico se asume un suelo medio, que sirve para la mayoria de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
+              "microclimate_factor": "Se usa solo cuando la exposición está en Personalizado. Intervalo de 0,1 a 1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno abierto.",
+              "vwc_sensor": "Opcional. Una sonda enterrada en esta zona, a un tercio de la profundidad de las raíces y a medio camino entre dos goteros. Por sí sola se muestra junto a las cifras de la zona y nada más cambia. Dale la profundidad de raíces de abajo y esta zona regará según lo que dice su suelo.\n\n**El sensor debe informar en escala 0-100**, 0 para suelo seco y 100 para húmedo, que es lo que publican las sondas de jardín. Un sensor en otra escala no es compatible y sus lecturas se ignoran.\n\n**Esa escala se usa sin calibrar, fijada en 0-100 tomada al pie de la letra:** el 0 se trata como el suelo más seco en el que una planta puede vivir y el 100 como uno lleno. Las sondas reales se calibran en fábrica contra aire seco y agua libre, y ninguno de esos es un estado en el que el suelo se encuentre nunca, así que un suelo lleno no marca realmente 100. Los milímetros que resultan están por tanto equivocados en un factor que nadie ha medido, normalmente por exceso: se riega algo más de lo necesario, en lugar de dejar una zona seca. Si te interesa, el razonamiento y lo que lo resolvería están aquí: {soil_doc}",
+              "root_depth_m": "Profundidad de la zona de raíces de la que habla la sonda de arriba, y el único número de aquí que ninguna tabla contiene: un césped, un seto y una maceta se diferencian en cuatro veces sobre el mismo terreno. Rellénalo y esta zona regará por su sonda en lugar de por la estimación meteorológica. Déjalo vacío y la sonda seguirá siendo una lectura mostrada junto a la estimación. La lectura 0-100 se interpreta como cuánta del agua que este suelo puede retener de verdad sigue presente, así que la profundidad y el suelo de abajo son los que la convierten en milímetros.",
+              "field_capacity": "Solo se lee cuando el tipo de suelo de arriba es Personalizado. El contenido de agua que este suelo retiene después de drenar, como fracción: aproximadamente 0,15 para arena, 0,25 para suelo franco, 0,35 para arcilla. Se usa para la estimación meteorológica; una zona con suelo Personalizado no puede ser regada por su sonda.",
+              "soil_type": "Opcional. De qué está hecho el terreno de esta zona. Aporta cuánta agua retiene el suelo y cuánta de ella puede alcanzar una planta, de modo que no necesitas conocer ninguno de los dos números. Dejado en Automático se asume un suelo medio, que sirve para la mayoría de los jardines y se indica expresamente al guardar. Personalizado aporta solo uno de los dos valores, por lo que una sonda no puede regar una zona con suelo Personalizado: para eso elige uno de los suelos con nombre."
             }
           },
           "valve_and_pipe": {
             "name": "Válvula e instalación",
-            "description": "Qué la riega: la válvula, cómo se mide la entrega y la instalación de riego.",
+            "description": "Qué la riega: la válvula, cómo se mide el suministro y la instalación de riego.",
             "data": {
               "valve": "Interruptor de la válvula",
-              "delivery_mode": "Modo de entrega del agua",
+              "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de entrega: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada",
               "delivery_timeout": "Tiempo máximo de seguridad"
             },
             "data_description": {
-              "system_type": "Fija la eficiencia de la zona (goteo 0.92, microaspersores 0.80, pop-up 0.68, manual 0.55). Elige Personalizado para indicar la tuya abajo.",
+              "system_type": "Fija la eficiencia de la zona (goteo 0,92, microaspersores 0,80, pop-up 0,68, manual 0,55). Elige Personalizado para indicar la tuya abajo.",
               "efficiency": "Se usa solo cuando el tipo de instalación está en Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo dice."
             }
           },
@@ -308,7 +308,7 @@
       },
       "check_zones": {
         "title": "Revisar las zonas configuradas",
-        "description": "Revisadas {zone_count} zonas: {findings_count} valores poco habituales encontrados:\n\n{report}\n\nUsa \"Editar una zona de riego\" para corregirlos. Los valores poco habituales pueden ser legítimos (jardineras, colectores de aspersores): es solo una comprobación de plausibilidad, no se ha modificado nada."
+        "description": "Zonas revisadas: {zone_count}. Valores poco habituales: {findings_count}.\n\n{report}\n\nUsa \"Editar una zona de riego\" para corregirlos. Los valores poco habituales pueden ser legítimos (jardineras, colectores de aspersores): es solo una comprobación de plausibilidad, no se ha modificado nada."
       },
       "remove_zone": {
         "title": "Eliminar zona de riego",
@@ -324,9 +324,9 @@
       "et_method_missing_sensors": "Ese método necesita sensores que esta instalación no ha declarado. Indica los sensores que pide, o deja el método en Automático.",
       "et_method_unknown": "Método de evapotranspiración desconocido.",
       "et_method_zone_probe": "Un sensor de humedad del suelo pertenece a una zona, no a toda la instalación. Configúralo en las opciones de esa zona; el método elegido aquí es el que usan las zonas que no tienen un sensor propio.",
-      "flow_rate_required": "Hace falta el caudal de diseño: el modo de entrega que has elegido calcula con él la duración del riego.",
-      "flow_meter_required": "Hace falta el sensor de entrega, un contador acumulativo o un caudal: el modo de entrega que has elegido cierra la válvula al volumen medido.",
-      "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de entrega que has elegido deja la dosificación a la válvula misma.",
+      "flow_rate_required": "Hace falta el caudal de diseño: el modo de suministro que has elegido calcula con él la duración del riego.",
+      "flow_meter_required": "Hace falta el sensor de suministro, un contador acumulativo o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
+      "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de suministro que has elegido deja la dosificación a la válvula misma.",
       "zone_already_exists": "Ya existe una zona con este nombre",
       "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
       "zone_name_too_long": "El nombre de la zona es demasiado largo (máximo 64 caracteres)",
@@ -345,17 +345,17 @@
     },
     "irrigation_mode": {
       "options": {
-        "manual": "Solo manual (botón o llamada de servicio)",
+        "manual": "Solo manual (botón o acción)",
         "reactive": "Reactivo (riega cuando el déficit supera el umbral)",
         "scheduled": "Programado (comprobación diaria a la hora fijada)"
       }
     },
     "system_type": {
       "options": {
-        "drip": "Riego por goteo / cinta (η=0.92)",
-        "micro_sprinkler": "Microaspersores (η=0.80)",
-        "sprinkler": "Aspersores emergentes, pop-up (η=0.68)",
-        "manual": "Manual / regadera (η=0.55) 🙂",
+        "drip": "Riego por goteo / cinta (η=0,92)",
+        "micro_sprinkler": "Microaspersores (η=0,80)",
+        "sprinkler": "Aspersores emergentes, pop-up (η=0,68)",
+        "manual": "Manual / manguera (η=0,55)",
         "custom": "Personalizado (indica la eficiencia abajo)"
       }
     },
@@ -383,13 +383,13 @@
     },
     "exposure": {
       "options": {
-        "deep_shade": "Sombra densa / todo el día (×0.60)",
-        "morning_sun": "Sol por la mañana, sombra por la tarde (×0.75)",
-        "afternoon_sun": "Sombra por la mañana, sol por la tarde (×0.85)",
-        "full_sun": "Pleno sol, zona abierta (×1.00, predeterminado)",
-        "windy": "Ventoso / expuesto (×1.15)",
-        "reflected_heat": "Calor reflejado: pavimento, muro orientado al sur (×1.20)",
-        "custom": "Personalizado (indica el factor abajo)"
+        "deep_shade": "Sombra intensa / todo el día (×0,60)",
+        "morning_sun": "Sol por la mañana, sombra por la tarde (×0,75)",
+        "afternoon_sun": "Sombra por la mañana, sol por la tarde (×0,85)",
+        "full_sun": "Pleno sol, zona abierta (×1,00, predeterminado)",
+        "windy": "Ventoso / expuesto (×1,15)",
+        "reflected_heat": "Calor reflejado: pavimento, muro orientado al sur (×1,20)",
+        "custom": "Personalizada (indica el factor abajo)"
       }
     },
     "et_method": {
@@ -445,7 +445,7 @@
           "scheduled": "Programado",
           "reactive": "Umbral de déficit",
           "manual": "Manual",
-          "service": "Llamada de servicio",
+          "service": "Acción",
           "button": "Botón",
           "automatic": "Automático",
           "mark_irrigated": "Marcada como regada",
@@ -557,11 +557,11 @@
     },
     "reset_yearly_water": {
       "name": "Poner a cero el agua anual",
-      "description": "Pone a cero, en todas las zonas, el total de agua regada del año en curso. Cada zona tiene su propio contador anual y normalmente se pone a cero el 1 de enero; esto los borra todos de una vez. El total entregado de siempre por zona y las estadísticas históricas no se tocan."
+      "description": "Pone a cero, en todas las zonas, el total de agua regada del año en curso. Cada zona tiene su propio contador anual y normalmente se pone a cero el 1 de enero; esto los borra todos de una vez. El total suministrado de siempre por zona y las estadísticas históricas no se tocan."
     },
     "irrigate_zone": {
       "name": "Regar una zona",
-      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de entrega de la zona: por tiempo, por volumen leído en el contador, o pasando un volumen objetivo a una válvula inteligente que se dosifica sola.",
+      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de suministro de la zona: por tiempo, por volumen leído en el contador, o pasando un volumen objetivo a una válvula inteligente que se dosifica sola.",
       "fields": {
         "zone_name": {
           "name": "Nombre de la zona",
@@ -571,7 +571,7 @@
     },
     "irrigate_all": {
       "name": "Regar todas las zonas",
-      "description": "Riega en secuencia todas las zonas configuradas. Cada zona usa su propio modo de entrega. Una pausa entre zonas deja que se estabilice la presión. El déficit se pone a cero cuando todas las zonas han terminado."
+      "description": "Riega en secuencia todas las zonas configuradas. Cada zona usa su propio modo de suministro. Una pausa entre zonas deja que se estabilice la presión. El déficit se pone a cero cuando todas las zonas han terminado."
     },
     "stop": {
       "name": "Parada de emergencia",
@@ -623,7 +623,7 @@
     },
     "test_valve": {
       "name": "Prueba de válvula (supervisada)",
-      "description": "Abre la válvula de una zona durante un tiempo fijado y mide lo que entrega de verdad, para poder comparar el caudal medido con el que se diseñó la zona. Vigila la zona mientras funciona.",
+      "description": "Abre la válvula de una zona durante un tiempo fijado y mide lo que suministra de verdad, para poder comparar el caudal medido con el que se diseñó la zona. Vigila la zona mientras funciona.",
       "fields": {
         "zone_name": {
           "name": "Zona",
@@ -645,8 +645,8 @@
     "notification_unreachable_at_irrigation_body": "No se ha podido iniciar el riego de la zona {zone}: la válvula no responde ({reason}). Comprueba la batería de la válvula y la red Zigbee antes de volver a intentarlo.",
     "notification_flow_meter_dead_title": "El contador no transmite",
     "notification_flow_meter_dead_body": "El contador de la zona {zone} no transmite ({detail}). El riego ha seguido con el caudal de diseño en lugar de saltarse, así que el volumen es estimado y no medido. Revisa la entidad del contador: un contador mudo es mucho más probable que una tubería seca.",
-    "notification_delivery_uncredited_title": "No se ha podido contabilizar el agua entregada",
-    "notification_delivery_uncredited_body": "La zona {zone} ha entregado agua que no se ha podido medir ({detail}) y no tiene un caudal de diseño con el que estimarla, así que su déficit no ha cambiado y la zona se volverá a regar en el ciclo siguiente. Indica el caudal de diseño de la zona, o repara el contador.",
+    "notification_delivery_uncredited_title": "No se ha podido contabilizar el agua suministrada",
+    "notification_delivery_uncredited_body": "La zona {zone} ha suministrado agua que no se ha podido medir ({detail}) y no tiene un caudal de diseño con el que estimarla, así que su déficit no ha cambiado y la zona se volverá a regar en el ciclo siguiente. Indica el caudal de diseño de la zona, o repara el contador.",
     "notification_stuck_open_title": "Válvula bloqueada abierta: cierra el agua de red",
     "notification_stuck_open_body": "El interruptor de la válvula de la zona {zone} indica apagado pero el agua sigue corriendo ({flow}). La integración ya ha intentado recuperarla y ha hecho una parada de emergencia en todas las demás zonas. **Cierra ahora a mano la llave general** y revisa la válvula afectada antes de volver a regar.",
     "notification_leak_detected_title": "Fuga detectada",
@@ -662,7 +662,7 @@
     "notification_water_me_now_title": "Se recomienda regar a mano",
     "notification_water_me_now_body": "Zona {zone}: déficit {deficit} por encima del umbral; riega a mano.",
     "notification_watchdog_triggered_title": "Válvula cerrada por el vigilante de seguridad",
-    "notification_watchdog_triggered_body": "La válvula de la zona {zone} ha estado abierta más de {duration_min} min sin recibir una orden de cierre. NeverDry la ha cerrado por su cuenta por seguridad. Comprueba que la automatización o la lógica de entrega funcionan correctamente."
+    "notification_watchdog_triggered_body": "La válvula de la zona {zone} ha estado abierta más de {duration_min} min sin recibir una orden de cierre. NeverDry la ha cerrado por su cuenta por seguridad. Comprueba que la automatización o la lógica de suministro funcionan correctamente."
   },
   "issues": {
     "soil_probe_needs_a_zone": {
