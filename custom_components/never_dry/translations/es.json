@@ -45,10 +45,10 @@
             },
             "data_description": {
               "area_m2": "Superficie de esta zona de riego en metros cuadrados",
-              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
-              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
-              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
-              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizada para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizada. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizada para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizada. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
             }
           },
           "valve_and_pipe": {
@@ -113,8 +113,8 @@
       "volume_entity_required": "Falta una entidad de volumen objetivo: el modo de aporte que has elegido deja la dosificación a la propia válvula.",
       "zone_already_exists": "Ya existe una zona con este nombre",
       "efficiency_required": "Indica una eficiencia: el tipo de sistema es Personalizado, que toma su valor de ese campo",
-      "kc_required": "Indica un Kc: la familia de plantas es Personalizado, que toma su valor de ese campo",
-      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizado, que toma su valor de ese campo"
+      "kc_required": "Indica un Kc: la familia de plantas es Personalizada, que toma su valor de ese campo",
+      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizada, que toma su valor de ese campo"
     },
     "abort": {
       "already_configured": "NeverDry ya está configurado"
@@ -163,10 +163,10 @@
               "microclimate_factor": "Factor de microclima personalizado (solo avanzado)"
             },
             "data_description": {
-              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
-              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
-              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
-              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizada para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizada. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizada para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizada. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
             }
           },
           "valve_and_pipe": {
@@ -228,10 +228,10 @@
               "microclimate_factor": "Factor de microclima personalizado (solo avanzado)"
             },
             "data_description": {
-              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
-              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
-              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
-              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizada para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizada. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizada para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizada. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
             }
           },
           "valve_and_pipe": {
@@ -276,8 +276,8 @@
     },
     "error": {
       "efficiency_required": "Indica una eficiencia: el tipo de sistema es Personalizado, que toma su valor de ese campo",
-      "kc_required": "Indica un Kc: la familia de plantas es Personalizado, que toma su valor de ese campo",
-      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizado, que toma su valor de ese campo",
+      "kc_required": "Indica un Kc: la familia de plantas es Personalizada, que toma su valor de ese campo",
+      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizada, que toma su valor de ese campo",
       "flow_rate_required": "Falta el caudal de diseño: el modo de aporte que has elegido calcula a partir de él la duración del riego.",
       "flow_meter_required": "Falta un sensor de medición del aporte — un contador acumulado o un caudal: el modo de aporte que has elegido cierra la válvula al alcanzar el volumen medido.",
       "volume_entity_required": "Falta una entidad de volumen objetivo: el modo de aporte que has elegido deja la dosificación a la propia válvula.",
@@ -324,7 +324,7 @@
         "succulents": "Suculentas / cactus",
         "native_ground_cover": "Cubresuelos autóctonos",
         "mixed_garden": "Jardín mixto (predeterminado)",
-        "custom": "Personalizado (define el Kc más abajo)"
+        "custom": "Personalizada (define el Kc más abajo)"
       }
     },
     "delivery_mode": {
@@ -336,13 +336,13 @@
     },
     "exposure": {
       "options": {
-        "deep_shade": "Sombra densa / todo el día (×0,60)",
+        "deep_shade": "Sombra intensa / todo el día (×0,60)",
         "morning_sun": "Sol por la mañana, sombra por la tarde (×0,75)",
         "afternoon_sun": "Sombra por la mañana, sol por la tarde (×0,85)",
         "full_sun": "Pleno sol, despejado (×1,00 — predeterminado)",
         "windy": "Ventoso / expuesto (×1,15)",
         "reflected_heat": "Calor reflejado — pavimento, muro orientado al sur (×1,20)",
-        "custom": "Personalizado (define el factor más abajo)"
+        "custom": "Personalizada (define el factor más abajo)"
       }
     }
   }
