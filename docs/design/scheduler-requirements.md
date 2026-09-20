@@ -92,6 +92,12 @@ Notes that this may want NeverDry to emit an event an automation can hook, and
 observes that a purely automation-based answer would not compose with
 [#138](https://github.com/never-dry/NeverDry/issues/138).
 
+**He has since answered the questions this raised**, on 2026-09-18, and his
+answers are recorded where they bear rather than collected here: the objection to
+truncation under the positions below, the opening edge of the window under
+irrigability windows, and what to do when the window cannot hold every zone under
+"An answer that came back".
+
 ### [#213](https://github.com/never-dry/NeverDry/issues/213): rain-aware interruption and manual suspension (maintainer)
 
 Two things in one issue. Stopping a run that is under way because it has started
@@ -157,6 +163,47 @@ This is also the structural answer to
 [#231](https://github.com/never-dry/NeverDry/issues/231): "finish before
 sunrise" is a window whose end is sunrise, decided against the envelope rather
 than as a special case for one request.
+
+**Which edge carries the constraint** ([#231](https://github.com/never-dry/NeverDry/issues/231),
+@sanderaernouts answering on 2026-09-18, maintainer position added the same day).
+He asks for an optional "not before", defaulting to sunset, and explicitly not a
+required one: with no opening edge the window degrades to "must be finished by
+sunrise", which is all he asked for to begin with. He also restated the goal
+while answering, and the restatement is worth keeping verbatim: **finish as much
+watering as possible before the sun is out**, rather than finish before sunrise.
+The first is a quantity to maximise, the second a boundary to respect, and only
+the first explains why he would rather overrun than be cut short. His two answers
+agree with each other: for his garden the window is a preference, not a limit.
+
+Worth weighing them with his garden in view, which he gave unasked: **one zone on
+a drip hose, finishing in under two hours**. Nothing about queueing, ordering or
+contention touches him, so his reading of the edges is first hand and his reading
+of what happens when zones compete is not.
+
+A consideration that goes further than the option he offers, raised here for
+objection and not as a decision: **the opening edge may be the one that carries
+the constraint, leaving the closing edge as the exception.** A start rule is
+decidable with what is known when it is applied: it is sunset, or it is not. A
+finish rule is not, because enforcing it means either placing the start with the
+expected duration, which is the estimate that made "sunrise minus duration"
+unworkable as a trigger in the first place, or cutting at the edge, which is the
+truncation the same person objects to above.
+Reframing the trigger as a window therefore solved less than it appeared to; it
+relocated the dependency on the estimate rather than removing it. An opening edge
+needs no estimate at all.
+
+Were that to hold, the closing edge would only earn its keep where a run can
+genuinely fail to fit the night, and that case is narrow enough to name.
+`scheduler.md` §11 puts a number on it: a zone of 3x10 minutes with 20-minute
+soaks occupies 70 minutes of wall clock for 30 minutes of water. Four such zones
+in series come to under five hours, and the interleaving corollary in that same section - during a
+soak the pipe is free - gives most of it back. Reaching a night's length takes
+many zones on heavy soil, run strictly in series, with no interleaving.
+
+The other case is real but is not this request: a window that ends for a reason
+of its own, a tariff or a municipal restriction, where stopping is the point.
+That is the same distinction the truncation objection exposes, seen from the
+other side.
 
 ### A freeze interlock, observed rather than declared
 
@@ -260,11 +307,28 @@ because the people they affect had not seen them.
   rather than refused.** The run is shifted to the first admissible time, not
   suppressed, and the warning names the effective time instead of merely
   reporting that the hour is not allowed.
-- **A run may finish outside the window it started in, by stated policy**, and
-  the default truncates at the window edge. For a cycle-and-soak run the cut
-  falls on a segment boundary and never mid-segment: whole segments dropped still
-  leave a valid pattern. Truncation is the default because it is the only option
-  that cannot surprise someone who set a window for a reason, such as a tariff.
+- **A run may finish outside the window it started in, by stated policy.** For a
+  cycle-and-soak run the cut falls on a segment boundary and never mid-segment:
+  whole segments dropped still leave a valid pattern. Truncation was the default
+  here, justified as the only option that cannot surprise someone who set a
+  window for a reason.
+
+  **@sanderaernouts objected, and the justification does not survive it**
+  ([#231](https://github.com/never-dry/NeverDry/issues/231), 2026-09-18):
+  finishing the zone matters more than finishing before sunrise, because the
+  sunrise finish is an optimisation and nothing breaks by running late, while
+  underwatering does break something. For his reason, truncation is precisely
+  the option that surprises, and it surprises silently: a zone cut at 60% is
+  short again tomorrow, cut again, with every run logged as policy.
+
+  What the objection exposes is not a wrong default but a missing distinction.
+  **The window does not record why it exists.** A tariff or a municipal
+  restriction is a hard boundary, where overrunning costs money or breaks a rule.
+  Soak time before sunrise is a preference, where overrunning costs nothing and
+  stopping short costs the garden. One object, two opposite right answers, and
+  today the object cannot tell them apart. Unreconciled: either the overrun
+  policy becomes a setting, or the window declares its own kind and the policy
+  follows from it.
 - **The deferral budget belongs to the rain delay policy**, beside the
   probability threshold and the delay hours, while the counter belongs to the
   zone. The limit is a site rule; the count is a fact about one zone, and it has
@@ -295,6 +359,88 @@ a question nobody can answer:
 - **Whether a suspended zone's deficit should be frozen.** It only bites for
   zones that get no rain credit at all, a patio or a greenhouse, which is
   narrower than "what happens over winter".
+
+### An answer that came back
+
+This section is where the document keeps its promise: what gets decided in the
+discussion returns here as an edit, with the reasoning. So far one of the open
+questions has been answered by the person it was put to, and the answer changed
+its shape on the way.
+
+**Contention, answered as a strategy rather than an answer**
+([#231](https://github.com/never-dry/NeverDry/issues/231), @sanderaernouts,
+2026-09-18). Asked whether the last zone should slip a night or every zone should
+get a shortened run, he declined the binary and proposed a setting with four
+options: `overshoot` (run past sunrise), `order by need` (largest deficit first),
+`spread` (every zone gets something), and `longest since` (longest time since
+last irrigation goes first).
+
+The four are not the same kind of thing, and separating them is most of the work.
+`overshoot` and `spread` answer what to do when the time does not fit: they are
+capacity policies, and they only arise under contention. `order by need` and
+`longest since` answer who goes first, which is a question even when there is
+time for everyone. `order by need` is also not a proposal: it is what this
+document already holds, so it reads as assent rather than as a new option.
+
+**`longest since` is the one nobody had named**, and it is worth keeping. It is
+the only criterion offered that does not consult the deficit, which makes it the
+only one that can protect a zone the deficit never lets win: a high threshold or
+a slow loss puts the same zone last every night, where the truncation objection
+above says it will be cut every night and logged as policy each time. The two
+answers meet there.
+
+Held against it, and not by anyone who has run this: four strategies on one
+installation are four behaviours to explain, and "who goes first" already has an
+answer that balances itself, since watering the driest zone stops it being the
+driest. The risk is a dropdown answering a question the model settles on its own.
+
+A second consideration, on how much contention there is to police. Running zones
+concurrently is the obvious way to shrink it, and `scheduler.md` §8 has already
+stated the condition: the policy says *may I*, the hydraulics say *can I*, and
+admission requires the flow of the active runs plus the candidate to fit within
+the supply. Where the supply has that headroom, concurrency does shorten the
+night and most of these strategies stop mattering. Where it does not, concurrency
+creates no water: two zones sharing one supply each take about twice as long for
+the same total, and below the pressure the emitters need it is worse than a wash,
+because the water is not merely slower but badly distributed. Which case an
+installation is in is not something the scheduler can assume; it is what the
+measured flow rates are for.
+
+One form of it is free, and is already written down: during a soak the pipe is
+released, so serial operation plus cycle and soak interleaves without any
+hydraulic headroom at all (`scheduler.md` §11). That is the concurrency available
+to every installation, and it compresses exactly the runs whose wall clock is
+inflated most.
+
+A third consideration, which strengthens the case for concurrency where the
+emitters allow it: **a meter read while zones are running turns the admission
+condition from a prediction into an observation.** Today the third condition
+compares the candidate's declared or historical rate against a supply figure
+nobody measured. A live reading does better than check that arithmetic - it can
+discover headroom no declared number knows about, because admitting a second zone
+and watching whether total flow rises proportionally or plateaus is a direct
+answer to "can I", asked of the pipe instead of of the configuration.
+
+Two limits keep it from being the whole answer, and both are already established
+elsewhere in this project.
+
+**A meter measures volume, not pressure.** Flow can stay plausible while pressure
+has sagged below what an emitter needs, and at that point a sprinkler zone is not
+slower, it is watering the wrong shape. Drip tolerates the sag and pressure
+compensating drip barely notices it; spray heads do not. So a flow reading can
+authorise concurrency for some zones and cannot certify it for others, which
+makes emitter type part of the question rather than a detail of the zone.
+
+**The reading may be too slow to admit on.** `delivery-contract.md` is built on a
+measured fact: a meter's reporting cadence is a property of the device, and the
+one in the field publishes on a clock rather than per litre - a 90 s verification
+window against a meter publishing every 300 s is what broke the delivery gate.
+An admission decision that waits for a meter to confirm headroom inherits that
+cadence, and several minutes per zone is not a decision, it is a delay. The same
+rule applies as everywhere else here: a flow reading should **qualify** the
+admission and never silently authorise an overlap the supply cannot feed.
+
+Unreconciled.
 
 ## What this document does not do
 
