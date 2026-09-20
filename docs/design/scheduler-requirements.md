@@ -442,6 +442,41 @@ admission and never silently authorise an overlap the supply cannot feed.
 
 Unreconciled.
 
+### What an upgrade owes the installations that already exist
+
+Nobody has asked for this, which is why it is written down: whatever the
+scheduler becomes, an installation that upgrades and touches none of the new
+settings has to behave exactly as it did before. That is a requirement on the
+design, not a courtesy, and it is cheap to meet only if it is stated before the
+design rather than discovered after it.
+
+What exists today is three irrigation modes on a zone - `manual`, `reactive` and
+`scheduled` - and `scheduled` carries a per-zone time of its own
+(`irrigation_time`, read in `controller.py`). **Both stay properties of the zone,
+and the scheduler acquires them as inputs rather than taking them over.** That is
+the same relationship already established for the cycle-and-soak rule in
+`scheduler.md` §11, where the scheduler does not own the rule, it interposes it:
+infiltration belongs to that patch of ground, and when a zone may water belongs
+to the zone too. Saying it this way settles the migration question rather than
+merely answering it - a property that never changes owner has nothing to migrate.
+
+The mode answers *whether* a zone waters and the window answers *when* it may, so
+they coexist rather than replace each other, and a window left unset must mean no
+constraint at all.
+
+The one collision is `scheduled`, because a zone's fixed hour and a site's window
+are both a "when", declared at different levels. That case already has a position
+taken above: an hour outside every window is not suppressed, the site wins, the
+run is shifted to the first admissible time and the zone is warned with the
+effective time named. So the field stays where it is and no setting is migrated.
+
+**The risk is not a field that moves, it is a field that quietly means something
+else.** Today a scheduled zone waters at its hour; if the window logic were to
+start gating scheduled zones by deficit or by a projection of it, a setting
+somebody saved months ago would change behaviour without anyone editing it, and
+the release notes would have nothing to say because no field changed. Whatever is
+decided, it has to be decided *knowingly* for `scheduled`, and said out loud.
+
 ## What this document does not do
 
 It does not propose a design, name an object, or say which of the requests above
