@@ -1,4 +1,4 @@
-/* NeverDry landing — shared styles (extracted from inline <style>, 2026-07-29).
+/* NeverDry landing - shared styles (extracted from inline <style>, 2026-07-29).
    Single source of truth for the 9 landing pages. */
 :root {
             --accent: #1f6aa5;
@@ -208,10 +208,24 @@
             transition: background 0.2s;
         }
         .lang-bar a:hover { background: rgba(255,255,255,0.15); }
-        .lang-bar a.active {
+        .lang-bar a.active,
+        .lang-bar a[aria-current="true"] {
             background: rgba(255,255,255,0.25);
             color: white;
             font-weight: 600;
+        }
+        /* The switcher is filled in by lang_switch.js once the document is
+           parsed. Reserving the row's height here means the rest of the page
+           does not jump down at that moment, and a reader with JavaScript off
+           sees an empty strip rather than a gap that shifts. */
+        .lang-bar[data-lang-switcher] { min-height: 36px; }
+
+        /* Where the page came from and what it collects: small, last, and on
+           every page, because "reachable from every page" is the requirement. */
+        .site-provenance {
+            margin-top: 0.6em;
+            font-size: 0.85em;
+            opacity: 0.75;
         }
 
         /* Footer */
