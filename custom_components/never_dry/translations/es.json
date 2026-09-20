@@ -1,0 +1,349 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "NeverDry — Sensores y modelo",
+        "description": "Selecciona los sensores meteorológicos y configura los parámetros del modelo de ET.",
+        "data": {
+          "temperature_sensor": "Sensor de temperatura",
+          "rain_sensor": "Sensor de lluvia",
+          "rain_sensor_type": "Tipo de sensor de lluvia",
+          "alpha": "Coeficiente de ET (α)",
+          "t_base": "Temperatura base",
+          "d_max": "Límite máximo del déficit",
+          "vwc_sensor": "Sensor de humedad del suelo (opcional)"
+        },
+        "data_description": {
+          "temperature_sensor": "Sensor de temperatura exterior en °C",
+          "rain_sensor": "Pluviómetro o sensor de precipitación de una estación meteorológica",
+          "rain_sensor_type": "Cómo informa tu sensor de lluvia de la precipitación. Por evento: mm en cada evento (pluviómetro de cazoletas, recomendado). Total diario: mm acumulados desde medianoche (estación meteorológica)",
+          "alpha": "Coeficiente de evapotranspiración. Empieza con 0,22 y ajústalo tras observar tu jardín durante una semana",
+          "t_base": "Temperatura por debajo de la cual la evapotranspiración es nula (plantas en reposo)",
+          "d_max": "Límite superior del índice de déficit",
+          "vwc_sensor": "Si se define, el déficit se calcula directamente a partir de la humedad del suelo en lugar del modelo de ET"
+        }
+      },
+      "zone": {
+        "title": "Añadir zona de riego",
+        "description": "Configura la zona n.º {zone_count}. Puedes añadir más zonas después.",
+        "data": {
+          "name": "Nombre de la zona"
+        },
+        "data_description": {
+          "name": "Nombre visible de esta zona (p. ej., Huerto, Césped)"
+        },
+        "sections": {
+          "ground_and_location": {
+            "name": "Terreno y ubicación",
+            "description": "Qué se riega aquí: el tamaño de la zona, lo que crece en ella y cuánto sol y viento recibe.",
+            "data": {
+              "area_m2": "Superficie regada",
+              "plant_family": "Familia de plantas",
+              "kc": "Coeficiente de cultivo Kc personalizado (prevalece sobre la familia de plantas)",
+              "exposure": "Exposición del emplazamiento",
+              "microclimate_factor": "Factor de microclima personalizado (solo avanzado)"
+            },
+            "data_description": {
+              "area_m2": "Superficie de esta zona de riego en metros cuadrados",
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+            }
+          },
+          "valve_and_pipe": {
+            "name": "Válvula y conducción",
+            "description": "Qué la riega: la válvula, cómo se mide el agua aportada y el sistema de riego.",
+            "data": {
+              "valve": "Interruptor de la válvula (opcional)",
+              "delivery_mode": "Modo de aporte de agua",
+              "flow_rate_lpm": "Caudal de diseño",
+              "flow_meter_sensor": "Sensor de medición del aporte — contador o caudal (solo con caudalímetro)",
+              "volume_entity": "Entidad de volumen objetivo (solo con dosificación por volumen)",
+              "system_type": "Tipo de sistema de riego",
+              "efficiency": "Eficiencia personalizada (prevalece sobre la del tipo de sistema)",
+              "delivery_timeout": "Tiempo límite de seguridad"
+            },
+            "data_description": {
+              "valve": "La entidad de tipo interruptor que controla la válvula de riego de esta zona. Déjalo vacío para el modo de solo monitorización (sin válvula)",
+              "delivery_mode": "Cómo aporta agua tu válvula. Encendido/apagado simple: válvula sin medición; la duración se calcula a partir del caudal. Con caudalímetro: válvula con sensor de caudal; se cierra al alcanzar el volumen objetivo. Dosificación por volumen: válvula inteligente que acepta un volumen objetivo y se cierra sola.",
+              "flow_rate_lpm": "Caudal de agua de la válvula en litros por hora (gal/h en imperial). Obligatorio cuando el modo de aporte calcula la duración a partir de él; recomendable también con caudalímetro o dosificación por volumen, donde determina la duración prevista y el ajuste del tiempo límite de seguridad. Mídelo con un cubo y un cronómetro",
+              "flow_meter_sensor": "Entidad de tipo sensor que informa de los litros acumulados aportados. Obligatoria cuando el modo de aporte es el que usa caudalímetro.",
+              "volume_entity": "Entidad de tipo número de la válvula inteligente que acepta un volumen objetivo en litros. Obligatoria cuando el modo de aporte deja la dosificación a la propia válvula.",
+              "system_type": "Define la eficiencia de la zona (goteo 0,92; microaspersores 0,80; aspersores emergentes 0,68; manual 0,55). Elige Personalizado para introducir la tuya más abajo.",
+              "efficiency": "Solo se usa cuando el tipo de sistema es Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo indicará.",
+              "delivery_timeout": "Tiempo máximo de espera de un aporte medido o autodosificado antes de forzar el cierre de la válvula (límite de seguridad)."
+            }
+          },
+          "scheduling": {
+            "name": "Programación",
+            "description": "Cuándo riega: a una hora fija, al superar un umbral de déficit o solo a petición.",
+            "data": {
+              "irrigation_mode": "Modo de riego",
+              "irrigation_time": "Hora diaria de riego",
+              "threshold": "Umbral de riego"
+            },
+            "data_description": {
+              "irrigation_time": "Hora del día a la que NeverDry comprueba el déficit y riega si supera el umbral. Déjalo vacío para desactivar la programación automática",
+              "threshold": "Nivel de déficit que activa el riego automático en esta zona"
+            }
+          }
+        }
+      },
+      "confirm_zone": {
+        "title": "Valores atípicos en la zona",
+        "description": "La zona «{zone_name}» tiene valores fuera del intervalo habitual:\n\n{warnings}\n\nSuele deberse a una confusión de unidades (p. ej., el caudal introducido en l/min en lugar de l/h). Marca la casilla para guardar de todos modos, o envía sin marcarla para volver y corregir los valores.",
+        "data": {
+          "confirm": "Los valores son correctos, guardar la zona"
+        }
+      },
+      "add_another": {
+        "title": "¿Añadir otra zona?",
+        "description": "Has configurado {zone_count} zona(s): {zone_names}.",
+        "data": {
+          "add_another": "Añadir otra zona de riego"
+        }
+      }
+    },
+    "error": {
+      "zone_name_too_long": "El nombre de la zona es demasiado largo (máx. 64 caracteres)",
+      "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
+      "flow_rate_required": "Falta el caudal de diseño: el modo de aporte que has elegido calcula a partir de él la duración del riego.",
+      "flow_meter_required": "Falta un sensor de medición del aporte — un contador acumulado o un caudal: el modo de aporte que has elegido cierra la válvula al alcanzar el volumen medido.",
+      "volume_entity_required": "Falta una entidad de volumen objetivo: el modo de aporte que has elegido deja la dosificación a la propia válvula.",
+      "zone_already_exists": "Ya existe una zona con este nombre",
+      "efficiency_required": "Indica una eficiencia: el tipo de sistema es Personalizado, que toma su valor de ese campo",
+      "kc_required": "Indica un Kc: la familia de plantas es Personalizado, que toma su valor de ese campo",
+      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizado, que toma su valor de ese campo"
+    },
+    "abort": {
+      "already_configured": "NeverDry ya está configurado"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "NeverDry — Opciones",
+        "description": "Elige qué quieres configurar.",
+        "menu_options": {
+          "model_params": "Editar los parámetros del modelo (α, T_base, D_max)",
+          "add_zone": "Añadir una zona de riego",
+          "edit_zone": "Editar una zona de riego",
+          "check_zones": "Revisar las zonas configuradas en busca de valores atípicos",
+          "remove_zone": "Eliminar una zona de riego"
+        }
+      },
+      "model_params": {
+        "title": "Sensores del sistema y modelo de ET",
+        "description": "Cambia los sensores de entrada o ajusta el modelo de evapotranspiración. Los cambios se aplican de inmediato.",
+        "data": {
+          "temperature_sensor": "Sensor de temperatura",
+          "rain_sensor": "Sensor de lluvia",
+          "rain_sensor_type": "Tipo de sensor de lluvia",
+          "vwc_sensor": "Sensor de humedad del suelo (opcional)",
+          "alpha": "Coeficiente de ET (α)",
+          "t_base": "Temperatura base",
+          "d_max": "Límite máximo del déficit"
+        }
+      },
+      "add_zone": {
+        "title": "Añadir zona de riego",
+        "data": {
+          "name": "Nombre de la zona"
+        },
+        "sections": {
+          "ground_and_location": {
+            "name": "Terreno y ubicación",
+            "description": "Qué se riega aquí: el tamaño de la zona, lo que crece en ella y cuánto sol y viento recibe.",
+            "data": {
+              "area_m2": "Superficie regada",
+              "plant_family": "Familia de plantas",
+              "kc": "Coeficiente de cultivo Kc personalizado",
+              "exposure": "Exposición del emplazamiento",
+              "microclimate_factor": "Factor de microclima personalizado (solo avanzado)"
+            },
+            "data_description": {
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+            }
+          },
+          "valve_and_pipe": {
+            "name": "Válvula y conducción",
+            "description": "Qué la riega: la válvula, cómo se mide el agua aportada y el sistema de riego.",
+            "data": {
+              "valve": "Interruptor de la válvula (opcional)",
+              "delivery_mode": "Modo de aporte de agua",
+              "flow_rate_lpm": "Caudal de la válvula",
+              "flow_meter_sensor": "Sensor de medición del aporte — contador o caudal (solo con caudalímetro)",
+              "volume_entity": "Entidad de volumen objetivo (solo con dosificación por volumen)",
+              "system_type": "Tipo de sistema de riego",
+              "efficiency": "Eficiencia personalizada",
+              "delivery_timeout": "Tiempo límite de seguridad"
+            },
+            "data_description": {
+              "system_type": "Define la eficiencia de la zona (goteo 0,92; microaspersores 0,80; aspersores emergentes 0,68; manual 0,55). Elige Personalizado para introducir la tuya más abajo.",
+              "efficiency": "Solo se usa cuando el tipo de sistema es Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo indicará."
+            }
+          },
+          "scheduling": {
+            "name": "Programación",
+            "description": "Cuándo riega: a una hora fija, al superar un umbral de déficit o solo a petición.",
+            "data": {
+              "irrigation_mode": "Modo de riego",
+              "irrigation_time": "Hora diaria de riego",
+              "threshold": "Umbral de riego"
+            }
+          }
+        }
+      },
+      "confirm_zone": {
+        "title": "Valores atípicos en la zona",
+        "description": "La zona «{zone_name}» tiene valores fuera del intervalo habitual:\n\n{warnings}\n\nSuele deberse a una confusión de unidades (p. ej., el caudal introducido en l/min en lugar de l/h). Marca la casilla para guardar de todos modos, o envía sin marcarla para volver y corregir los valores.",
+        "data": {
+          "confirm": "Los valores son correctos, guardar la zona"
+        }
+      },
+      "edit_zone": {
+        "title": "Editar zona de riego",
+        "data": {
+          "zone_to_edit": "Zona que quieres editar"
+        }
+      },
+      "edit_zone_detail": {
+        "title": "Editar zona: {zone_name}",
+        "data": {
+          "name": "Nombre de la zona"
+        },
+        "sections": {
+          "ground_and_location": {
+            "name": "Terreno y ubicación",
+            "description": "Qué se riega aquí: el tamaño de la zona, lo que crece en ella y cuánto sol y viento recibe.",
+            "data": {
+              "area_m2": "Superficie regada",
+              "plant_family": "Familia de plantas",
+              "kc": "Coeficiente de cultivo Kc personalizado",
+              "exposure": "Exposición del emplazamiento",
+              "microclimate_factor": "Factor de microclima personalizado (solo avanzado)"
+            },
+            "data_description": {
+              "plant_family": "Define la curva estacional de Kc según lo que crece aquí. Elige Personalizado para introducir un Kc fijo más abajo.",
+              "kc": "Solo se usa cuando la familia de plantas es Personalizado. Con cualquier otra familia se aplica la curva estacional y este campo se ignora.",
+              "exposure": "Cuánto sol y viento recibe esta zona en comparación con un emplazamiento despejado. Multiplica el Kc, de modo que la zona conserva su curva estacional en lugar de quedar fijada en un único valor. Elige Personalizado para introducir tu propio factor más abajo.",
+              "microclimate_factor": "Solo se usa cuando la exposición es Personalizado. Intervalo 0,1–1,5; por encima de 1,0 para zonas que se secan más rápido que el terreno despejado."
+            }
+          },
+          "valve_and_pipe": {
+            "name": "Válvula y conducción",
+            "description": "Qué la riega: la válvula, cómo se mide el agua aportada y el sistema de riego.",
+            "data": {
+              "valve": "Interruptor de la válvula",
+              "delivery_mode": "Modo de aporte de agua",
+              "flow_rate_lpm": "Caudal de la válvula",
+              "flow_meter_sensor": "Sensor de medición del aporte — contador o caudal (solo con caudalímetro)",
+              "volume_entity": "Entidad de volumen objetivo (solo con dosificación por volumen)",
+              "system_type": "Tipo de sistema de riego",
+              "efficiency": "Eficiencia personalizada",
+              "delivery_timeout": "Tiempo límite de seguridad"
+            },
+            "data_description": {
+              "system_type": "Define la eficiencia de la zona (goteo 0,92; microaspersores 0,80; aspersores emergentes 0,68; manual 0,55). Elige Personalizado para introducir la tuya más abajo.",
+              "efficiency": "Solo se usa cuando el tipo de sistema es Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo indicará."
+            }
+          },
+          "scheduling": {
+            "name": "Programación",
+            "description": "Cuándo riega: a una hora fija, al superar un umbral de déficit o solo a petición.",
+            "data": {
+              "irrigation_mode": "Modo de riego",
+              "irrigation_time": "Hora diaria de riego",
+              "threshold": "Umbral de riego"
+            }
+          }
+        }
+      },
+      "check_zones": {
+        "title": "Revisar las zonas configuradas",
+        "description": "Se han revisado {zone_count} zona(s) y se han encontrado {findings_count} valor(es) atípico(s):\n\n{report}\n\nUsa «Editar una zona de riego» para corregirlos. Un valor atípico puede ser legítimo (zonas en jardineras, colectores de aspersores): esto es solo una comprobación de verosimilitud y no se ha modificado nada."
+      },
+      "remove_zone": {
+        "title": "Eliminar zona de riego",
+        "data": {
+          "zone_to_remove": "Zona que quieres eliminar"
+        }
+      }
+    },
+    "error": {
+      "efficiency_required": "Indica una eficiencia: el tipo de sistema es Personalizado, que toma su valor de ese campo",
+      "kc_required": "Indica un Kc: la familia de plantas es Personalizado, que toma su valor de ese campo",
+      "microclimate_factor_required": "Indica un factor de microclima: la exposición es Personalizado, que toma su valor de ese campo",
+      "flow_rate_required": "Falta el caudal de diseño: el modo de aporte que has elegido calcula a partir de él la duración del riego.",
+      "flow_meter_required": "Falta un sensor de medición del aporte — un contador acumulado o un caudal: el modo de aporte que has elegido cierra la válvula al alcanzar el volumen medido.",
+      "volume_entity_required": "Falta una entidad de volumen objetivo: el modo de aporte que has elegido deja la dosificación a la propia válvula.",
+      "zone_already_exists": "Ya existe una zona con este nombre",
+      "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
+      "zone_name_too_long": "El nombre de la zona es demasiado largo (máx. 64 caracteres)"
+    },
+    "abort": {
+      "no_zones": "No hay zonas configuradas"
+    }
+  },
+  "selector": {
+    "rain_sensor_type": {
+      "options": {
+        "event": "Por evento (en cada evento — pluviómetro de cazoletas)",
+        "daily_total": "Total diario (acumulado desde medianoche)"
+      }
+    },
+    "irrigation_mode": {
+      "options": {
+        "manual": "Solo manual (botón / acción)",
+        "reactive": "Reactivo (riega cuando el déficit supera el umbral)",
+        "scheduled": "Programado (comprobación diaria a la hora fijada)"
+      }
+    },
+    "system_type": {
+      "options": {
+        "drip": "Riego por goteo (η=0,92)",
+        "micro_sprinkler": "Microaspersores (η=0,80)",
+        "sprinkler": "Aspersores emergentes (η=0,68)",
+        "manual": "Manual / manguera (η=0,55)",
+        "custom": "Personalizado (define la eficiencia más abajo)"
+      }
+    },
+    "plant_family": {
+      "options": {
+        "lawn": "Césped",
+        "vegetables": "Hortalizas (de temporada)",
+        "fruit_trees": "Frutales (de hoja caduca)",
+        "ornamental_shrubs": "Arbustos ornamentales",
+        "herbs": "Aromáticas (mediterráneas)",
+        "citrus": "Cítricos / frutales de hoja perenne",
+        "roses": "Rosales",
+        "succulents": "Suculentas / cactus",
+        "native_ground_cover": "Cubresuelos autóctonos",
+        "mixed_garden": "Jardín mixto (predeterminado)",
+        "custom": "Personalizado (define el Kc más abajo)"
+      }
+    },
+    "delivery_mode": {
+      "options": {
+        "estimated_flow": "Encendido/apagado simple — por tiempo (predeterminado)",
+        "flow_meter": "Válvula con caudalímetro",
+        "volume_preset": "Válvula inteligente con dosificación por volumen"
+      }
+    },
+    "exposure": {
+      "options": {
+        "deep_shade": "Sombra densa / todo el día (×0,60)",
+        "morning_sun": "Sol por la mañana, sombra por la tarde (×0,75)",
+        "afternoon_sun": "Sombra por la mañana, sol por la tarde (×0,85)",
+        "full_sun": "Pleno sol, despejado (×1,00 — predeterminado)",
+        "windy": "Ventoso / expuesto (×1,15)",
+        "reflected_heat": "Calor reflejado — pavimento, muro orientado al sur (×1,20)",
+        "custom": "Personalizado (define el factor más abajo)"
+      }
+    }
+  }
+}
