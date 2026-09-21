@@ -72,7 +72,7 @@
               "valve": "Interruptor de la válvula (opcional)",
               "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: total acumulado o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada (prevalece sobre el valor del tipo de instalación)",
@@ -82,7 +82,7 @@
               "valve": "La entidad interruptor que controla la válvula de riego de esta zona. Déjalo vacío para el modo de solo seguimiento (sin válvula)",
               "delivery_mode": "Cómo suministra el agua tu válvula. Caudal estimado: válvula simple on/off, la duración se calcula a partir del caudal. Caudalímetro: válvula con sensor de caudal, se cierra al alcanzar el volumen objetivo. Volumen preestablecido: válvula inteligente que acepta un volumen objetivo y se cierra por sí sola.",
               "flow_rate_lpm": "La suma del caudal nominal de todo lo que riega esta zona (aspersores, goteros, microaspersores) en litros por hora (gal/h en unidades imperiales). Tómala de la ficha de los emisores o de tu proyecto de riego: no hace falta medirla. Es lo que la zona se construyó para suministrar, y es obligatoria: sin ella no hay forma de convertir un volumen en una duración de riego. Lo que la zona suministra de verdad se mide aparte, a partir de los riegos reales, y la diferencia entre las dos merece atención.",
-              "flow_meter_sensor": "Sirven los dos, y NeverDry los distingue por la unidad de medida. Un contador acumulativo (L, gal, m³) se lee antes y después del riego y la diferencia es el volumen suministrado: es el más preciso de los dos, porque no depende de cada cuánto informa la válvula. Un caudal instantáneo (L/min, L/h, m³/h, gal/min, gal/h) se integra en cambio a lo largo del riego, así que la frecuencia con la que la válvula informa de su caudal decide lo bueno que es el número. Obligatorio cuando el modo de suministro es el de caudalímetro.",
+              "flow_meter_sensor": "Sirven los dos, y NeverDry los distingue por la unidad de medida. Un total acumulado (L, gal, m³) se lee antes y después del riego y la diferencia es el volumen suministrado: es el más preciso de los dos, porque no depende de cada cuánto informa la válvula. Un caudal instantáneo (L/min, L/h, m³/h, gal/min, gal/h) se integra en cambio a lo largo del riego, así que la frecuencia con la que la válvula informa de su caudal decide lo bueno que es el número. Obligatorio cuando el modo de suministro es el de caudalímetro.",
               "volume_entity": "Entidad numérica de la válvula inteligente que acepta un volumen objetivo en litros. Obligatoria cuando el modo de suministro deja la dosificación a la válvula.",
               "system_type": "Fija la eficiencia de la zona (goteo 0,92, microaspersores 0,80, pop-up 0,68, manual 0,55). Elige Personalizado para indicar la tuya abajo.",
               "efficiency": "Se usa solo cuando el tipo de instalación está en Personalizado. Con cualquier otro tipo este campo se ignora y el formulario te lo dice.",
@@ -123,7 +123,7 @@
       "zone_name_too_long": "El nombre de la zona es demasiado largo (máximo 64 caracteres)",
       "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
       "flow_rate_required": "Hace falta el caudal de diseño: el modo de suministro que has elegido calcula con él la duración del riego.",
-      "flow_meter_required": "Hace falta el sensor de suministro, un contador acumulativo o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
+      "flow_meter_required": "Hace falta el sensor de suministro, un total acumulado o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
       "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de suministro que has elegido deja la dosificación a la válvula misma.",
       "zone_already_exists": "Ya existe una zona con este nombre",
       "efficiency_required": "Indica una eficiencia: el tipo de instalación está en Personalizado, que toma su valor de ese campo",
@@ -211,7 +211,7 @@
               "valve": "Interruptor de la válvula (opcional)",
               "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: total acumulado o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada",
@@ -284,7 +284,7 @@
               "valve": "Interruptor de la válvula",
               "delivery_mode": "Modo de suministro del agua",
               "flow_rate_lpm": "Caudal de diseño",
-              "flow_meter_sensor": "Sensor de suministro: contador o caudal (solo con válvula con caudalímetro)",
+              "flow_meter_sensor": "Sensor de suministro: total acumulado o caudal (solo con válvula con caudalímetro)",
               "volume_entity": "Entidad que recibe el volumen (solo con dosificación por volumen)",
               "system_type": "Tipo de instalación de riego",
               "efficiency": "Eficiencia personalizada",
@@ -325,7 +325,7 @@
       "et_method_unknown": "Método de evapotranspiración desconocido.",
       "et_method_zone_probe": "Un sensor de humedad del suelo pertenece a una zona, no a toda la instalación. Configúralo en las opciones de esa zona; el método elegido aquí es el que usan las zonas que no tienen un sensor propio.",
       "flow_rate_required": "Hace falta el caudal de diseño: el modo de suministro que has elegido calcula con él la duración del riego.",
-      "flow_meter_required": "Hace falta el sensor de suministro, un contador acumulativo o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
+      "flow_meter_required": "Hace falta el sensor de suministro, un total acumulado o un caudal: el modo de suministro que has elegido cierra la válvula al volumen medido.",
       "volume_entity_required": "Hace falta la entidad que recibe el volumen: el modo de suministro que has elegido deja la dosificación a la válvula misma.",
       "zone_already_exists": "Ya existe una zona con este nombre",
       "too_many_zones": "Se ha alcanzado el número máximo de zonas (50)",
@@ -416,7 +416,7 @@
         "name": "Método de balance hídrico",
         "state": {
           "et_simple": "Simple (solo temperatura)",
-          "vwc_system": "Sensor de humedad del suelo",
+          "vwc_system": "Sonda de humedad del suelo",
           "hargreaves": "Hargreaves-Samani (amplitud térmica diaria)",
           "penman_monteith": "Penman-Monteith (FAO-56)"
         }
@@ -477,7 +477,7 @@
         "name": "Volumen anterior"
       },
       "session_water": {
-        "name": "Agua de esta sesión"
+        "name": "Agua de este riego"
       },
       "rain_yearly": {
         "name": "Lluvia anual"
@@ -492,7 +492,7 @@
         "name": "Caudal medido"
       },
       "meter_resolution": {
-        "name": "Resolución del contador"
+        "name": "Resolución del caudalímetro"
       },
       "irrigation_mode": {
         "name": "Modo de riego"
@@ -519,7 +519,7 @@
         "name": "Batería"
       },
       "linked_water_meter": {
-        "name": "Contador de agua"
+        "name": "Caudalímetro"
       }
     },
     "button": {
@@ -561,7 +561,7 @@
     },
     "irrigate_zone": {
       "name": "Regar una zona",
-      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de suministro de la zona: por tiempo, por volumen leído en el contador, o pasando un volumen objetivo a una válvula inteligente que se dosifica sola.",
+      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de suministro de la zona: por tiempo, por volumen leído en el caudalímetro, o pasando un volumen objetivo a una válvula inteligente que se dosifica sola.",
       "fields": {
         "zone_name": {
           "name": "Nombre de la zona",
@@ -631,7 +631,7 @@
         },
         "duration_min": {
           "name": "Duración",
-          "description": "Minutos que la válvula permanece abierta. Un minuto da una medida poco fiable: un contador que salta de litro en litro apenas se mueve en ese tiempo, y un caudal calculado sobre uno o dos saltos describe la resolución del contador, no la zona. Las pruebas más largas cuestan agua, pero son la única forma de medir una zona lenta."
+          "description": "Minutos que la válvula permanece abierta. Un minuto da una medida poco fiable: un caudalímetro que salta de litro en litro apenas se mueve en ese tiempo, y un caudal calculado sobre uno o dos saltos describe la resolución del caudalímetro, no la zona. Las pruebas más largas cuestan agua, pero son la única forma de medir una zona lenta."
         }
       }
     }
@@ -643,10 +643,10 @@
     "notification_unreachable_passive_body": "La válvula de la zona {zone} no responde desde hace {duration}.",
     "notification_unreachable_at_irrigation_title": "La válvula no responde a la hora del riego",
     "notification_unreachable_at_irrigation_body": "No se ha podido iniciar el riego de la zona {zone}: la válvula no responde ({reason}). Comprueba la batería de la válvula y la red Zigbee antes de volver a intentarlo.",
-    "notification_flow_meter_dead_title": "El contador no transmite",
-    "notification_flow_meter_dead_body": "El contador de la zona {zone} no transmite ({detail}). El riego ha seguido con el caudal de diseño en lugar de omitirse, así que el volumen es estimado y no medido. Revisa la entidad del contador: un contador mudo es mucho más probable que una tubería seca.",
+    "notification_flow_meter_dead_title": "El caudalímetro no transmite",
+    "notification_flow_meter_dead_body": "El caudalímetro de la zona {zone} no transmite ({detail}). El riego ha seguido con el caudal de diseño en lugar de omitirse, así que el volumen es estimado y no medido. Revisa la entidad del caudalímetro: un caudalímetro mudo es mucho más probable que una tubería seca.",
     "notification_delivery_uncredited_title": "No se ha podido contabilizar el agua suministrada",
-    "notification_delivery_uncredited_body": "La zona {zone} ha suministrado agua que no se ha podido medir ({detail}) y no tiene un caudal de diseño con el que estimarla, así que su déficit no ha cambiado y la zona se volverá a regar en el ciclo siguiente. Indica el caudal de diseño de la zona, o repara el contador.",
+    "notification_delivery_uncredited_body": "La zona {zone} ha suministrado agua que no se ha podido medir ({detail}) y no tiene un caudal de diseño con el que estimarla, así que su déficit no ha cambiado y la zona se volverá a regar en el ciclo siguiente. Indica el caudal de diseño de la zona, o repara el caudalímetro.",
     "notification_stuck_open_title": "Válvula bloqueada abierta: cierra la llave general",
     "notification_stuck_open_body": "El interruptor de la válvula de la zona {zone} indica apagado pero el agua sigue corriendo ({flow}). La integración ya ha intentado recuperarla y ha hecho una parada de emergencia en todas las demás zonas. **Cierra ahora a mano la llave general** y revisa la válvula afectada antes de volver a regar.",
     "notification_leak_detected_title": "Fuga detectada",
