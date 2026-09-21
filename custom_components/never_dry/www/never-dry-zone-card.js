@@ -288,7 +288,7 @@ const I18N = {
     irrigateNow: "Regar ahora",
     irrigating: "Regando",
     maintenance: "Mantenimiento",
-    unreachable: "Válvula sin respuesta",
+    unreachable: "La válvula no responde",
     waitingForValve: "esperando el primer contacto",
     secWarnings: "Requiere atención",
     warn_timeout_caps_duration: "Superado el tiempo límite — esta zona se detendrá antes de alcanzar su objetivo",
@@ -403,7 +403,7 @@ const VALVE_STATE_I18N = {
     req_open: "abriendo…",
     req_close: "cerrando…",
     maintenance: "mantenimiento",
-    unreachable: "sin respuesta",
+    unreachable: "no responde",
   },
 };
 
