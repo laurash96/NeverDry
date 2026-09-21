@@ -542,26 +542,26 @@
         "name": "Poner a cero la lluvia anual"
       },
       "reset_yearly_water": {
-        "name": "Poner a cero el agua anual"
+        "name": "Poner a cero el riego anual"
       }
     }
   },
   "services": {
     "reset": {
       "name": "Poner a cero el déficit",
-      "description": "Pone a cero el déficit de agua del suelo (normalmente se llama cuando termina el riego)."
+      "description": "Pone a cero el déficit de agua del suelo (normalmente se ejecuta cuando termina el riego)."
     },
     "reset_yearly_rain": {
       "name": "Poner a cero la lluvia anual",
       "description": "Pone a cero el total de lluvia del año en curso (para toda la instalación). El total es un único valor que comparten los sensores \"Lluvia anual\" de todas las zonas y normalmente se pone a cero por sí solo el 1 de enero. Sirve para borrar un valor equivocado, por ejemplo después de cambiar el tipo de sensor de lluvia, sin esperar al año nuevo ni reinstalar. Las estadísticas históricas no se tocan."
     },
     "reset_yearly_water": {
-      "name": "Poner a cero el agua anual",
-      "description": "Pone a cero, en todas las zonas, el total de agua regada del año en curso. Cada zona tiene su propio contador anual y normalmente se pone a cero el 1 de enero; esto los borra todos de una vez. El total suministrado de siempre por zona y las estadísticas históricas no se tocan."
+      "name": "Poner a cero el riego anual",
+      "description": "Pone a cero, en todas las zonas, el total de agua regada del año en curso. Cada zona tiene su propio contador anual y normalmente se pone a cero el 1 de enero; esto los borra todos de una vez. El total histórico suministrado por zona y las estadísticas históricas no se tocan."
     },
     "irrigate_zone": {
       "name": "Regar una zona",
-      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de suministro de la zona: por tiempo, por volumen leído en el caudalímetro, o pasando un volumen objetivo a una válvula inteligente que se dosifica sola.",
+      "description": "Inicia el riego de una sola zona. Cómo se mide el agua depende del modo de suministro de la zona: por tiempo, por volumen leído en el caudalímetro, o pasando un volumen objetivo a una válvula inteligente que dosifica por sí misma.",
       "fields": {
         "zone_name": {
           "name": "Nombre de la zona",
@@ -599,7 +599,7 @@
     },
     "set_deficit": {
       "name": "Fijar el déficit",
-      "description": "Fija el déficit de agua de una zona en un valor elegido. Sirve para corregir el modelo después de algo que no ha podido ver, como un riego a mano abundante o una temporada con el sensor de lluvia fuera de servicio.",
+      "description": "Fija el déficit de agua de una zona en un valor elegido. Sirve para corregir el modelo después de algo que no ha podido ver, como un riego a mano abundante o un periodo con el sensor de lluvia fuera de servicio.",
       "fields": {
         "deficit_mm": {
           "name": "Déficit (mm)",
