@@ -1955,6 +1955,17 @@ class IrrigationZoneSensor(SensorEntity, RestoreEntity):
         # battery that fails in June would report damp soil until September and
         # the zone would never be watered again.
         self._probe_last_seen: datetime | None = None
+        # Two dates, because "alive" and "moving" are different questions and a
+        # single timestamp cannot answer both. This one is when the reading last
+        # *changed*: on ground that has plateaued it stands still for hours while
+        # the probe is perfectly healthy, which is why it must never stand in for
+        # the one above. Kept because the opposite case needs it - a radio that
+        # keeps reporting while the sensing element has frozen is invisible to a
+        # freshness check, and the distance between these two dates is the only
+        # thing in the system that would show it (GH #234). Published, not wired
+        # into a decision: acting on it is a second channel of reliability and a
+        # choice of its own.
+        self._probe_value_moved_at: datetime | None = None
         self._probe_quiet = QuietWatermark(window_s=PROBE_CADENCE_MEMORY_S)
         self._probe_silent_logged = False
         # When the *device* last spoke, which is a different question from when
@@ -2587,8 +2598,21 @@ class IrrigationZoneSensor(SensorEntity, RestoreEntity):
         # The state's own timestamp where there is one: it says when the probe
         # spoke, which is the quantity being measured, rather than when this
         # callback got round to it.
-        stamp = getattr(state, "last_updated", None)
+        #
+        # ``last_reported`` and not ``last_updated``: the question here is
+        # whether the probe is alive, and a probe that republishes the same
+        # number is alive. ``last_updated`` moves only when the value changes,
+        # so on ground that has plateaued it stops while the probe keeps
+        # talking - and this timestamp is what the freshness check falls back on
+        # whenever the probe's device cannot be resolved. Reading it there made
+        # a healthy probe on still ground look silent, and the zone was handed
+        # back to the weather estimate on a different scale (GH #234, two
+        # installations).
+        changed = getattr(state, "last_updated", None)
+        stamp = getattr(state, "last_reported", None) or changed
         seen = stamp if isinstance(stamp, datetime) and stamp.tzinfo else datetime.now(UTC)
+        if isinstance(changed, datetime) and changed.tzinfo:
+            self._probe_value_moved_at = changed
         # The gap between two readings is deliberately *not* fed to the bar. It
         # measures how long the soil took to move by a whole point, which is a
         # property of the weather, and the bar is about the device. Feeding it
@@ -3149,6 +3173,11 @@ class IrrigationZoneSensor(SensorEntity, RestoreEntity):
             # which is the opposite of the bug this pair exists to fix.
             if self._probe_last_seen is not None:
                 attrs["probe_last_seen"] = self._probe_last_seen.isoformat()
+            # Beside it, and deliberately not instead of it: this one answers
+            # "is the reading moving", the other "is the probe alive". Far apart
+            # is a probe reporting a frozen value.
+            if self._probe_value_moved_at is not None:
+                attrs["probe_value_moved_at"] = self._probe_value_moved_at.isoformat()
         if self._probe_drives:
             # What the reading was multiplied by, published beside what it
             # produced. The number carries the authority of a measurement and

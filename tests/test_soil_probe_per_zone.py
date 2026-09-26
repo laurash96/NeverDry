@@ -1295,3 +1295,73 @@ class TestThePlaceholderReachesTheForm:
         assert "{soil_doc}" in text, "the description must reference the document"
         assert "https://" not in text, "a URL in the string is what hassfest refuses"
         assert "soil-moisture-model.md" in self._flow_source(), "and the flow must supply it"
+
+
+def _spoke(value: str, *, reported_ago: timedelta, changed_ago: timedelta):
+    """A probe event with the two timestamps set apart.
+
+    Home Assistant moves ``last_reported`` on every publication and
+    ``last_updated`` only when the value changes, so a probe on still ground
+    has a recent first and an old second. The helpers above cannot express
+    that, and it is the whole case here.
+    """
+    now = datetime.now(UTC)
+    event = MagicMock()
+    event.data = {
+        "new_state": SimpleNamespace(
+            state=value,
+            last_reported=now - reported_ago,
+            last_updated=now - changed_ago,
+        )
+    }
+    return event
+
+
+class TestAliveAndMovingAreDifferentQuestions:
+    """A probe that repeats itself is not a probe that has stopped.
+
+    Ground that has plateaued holds the same percentage for hours while the
+    probe reports on time throughout. Measuring life by when the value last
+    *changed* calls that probe dead, withdraws its reading, and hands the zone
+    back to the weather estimate - a different scale, with nothing on screen to
+    say the ruler was swapped. Two installations saw it before the code did
+    (GH #234).
+    """
+
+    def _driven_zone(self, hass_mock):
+        hub = DrynessIndexSensor(hass_mock, dict(HUB))
+        zone = _zone(hass_mock, hub, **DRIVEN)
+        zone._zone_deficit = 4.0
+        return zone
+
+    def test_a_probe_repeating_itself_on_still_ground_stays_believed(self, hass_mock):
+        zone = self._driven_zone(hass_mock)
+        zone._on_own_probe(_spoke("18.0", reported_ago=timedelta(minutes=2), changed_ago=timedelta(hours=6)))
+        _has_come_back_from(zone, 300.0, 310.0, 305.0)
+
+        assert zone._probe_is_fresh() is True, "reporting on time is being alive, whatever the value does"
+        assert zone._zone_deficit == pytest.approx(AT_18_PCT)
+
+    def test_a_probe_that_says_nothing_at_all_still_falls_back(self, hass_mock):
+        """The guard this pair exists for must keep firing."""
+        zone = self._driven_zone(hass_mock)
+        zone._on_own_probe(_spoke("18.0", reported_ago=timedelta(hours=6), changed_ago=timedelta(hours=6)))
+        _has_come_back_from(zone, 300.0, 310.0, 305.0)
+
+        assert zone._probe_is_fresh() is False
+        assert zone.deficit_source == "site_model"
+        assert zone._zone_deficit == 4.0
+
+    def test_the_two_dates_are_published_apart(self, hass_mock):
+        """Far apart is a radio that reports while the element has frozen: the
+        one failure a freshness check cannot see. Published as evidence, not
+        wired into a decision - acting on it is a second channel and a choice
+        of its own."""
+        zone = self._driven_zone(hass_mock)
+        zone._on_own_probe(_spoke("18.0", reported_ago=timedelta(minutes=1), changed_ago=timedelta(days=3)))
+
+        attrs = zone.extra_state_attributes
+
+        assert "probe_last_seen" in attrs
+        assert "probe_value_moved_at" in attrs
+        assert attrs["probe_last_seen"] != attrs["probe_value_moved_at"]
