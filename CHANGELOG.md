@@ -64,6 +64,19 @@ not the argument.
   ([#223](https://github.com/never-dry/NeverDry/issues/223))
 
 ### Changed
+- **Spanish, read back by somebody who speaks it**
+  ([#215](https://github.com/never-dry/NeverDry/issues/215)). Sixty-seven
+  strings rewritten by @laurash96 from her own reading of the catalogue: accents
+  restored where they had been dropped, a watering can that should have been a
+  hose, a count that read *Revisadas 1 zonas*, the decimal comma throughout, and
+  the word for water reaching a zone changed from one that means handing
+  something over to one that reads the same in Spain and in Latin America.
+  Second language in the project read back by a native speaker rather than by
+  its author. Whether to ship a separate Latin American catalogue was asked and
+  answered in the same thread: there is no lexical divergence to hold, and the
+  one real difference, the decimal separator, runs *through* Latin America
+  rather than around it, so no regional code could resolve it.
+
 - **The zone card speaks the language of whoever is looking at it.** About half
   its labels used to be taken from the entity names, which Home Assistant
   resolves once in the *server's* language: a household whose frontend was in
@@ -141,6 +154,37 @@ not the argument.
   meter had stopped answering.
 
 ### Fixed
+- **The same probe, declared dead down the other path**
+  ([#234](https://github.com/never-dry/NeverDry/issues/234)). The fix below
+  taught the freshness check to watch the probe's whole device. Where that
+  device cannot be resolved there is a second path, and it was still asking the
+  old question: it measured the probe's life by when its value last *changed*,
+  so a probe reporting on time onto ground that had plateaued looked silent
+  there too. The reading was withdrawn and the zone fell back to the weather
+  estimate - not a crash in the deficit but a change of ruler, onto a different
+  scale, with nothing on screen to say so. Liveness is now read from when the
+  probe last *reported*. Reported independently by two installations.
+
+  The other half of that report is not fixed, and is worth stating plainly: a
+  probe that transmits only when its value changes has both timestamps moving
+  together, and no field in Home Assistant separates *the ground is still* from
+  *the probe is gone*. Those probes need a second signal rather than a better
+  reading of silence. The distance between the two dates is now published
+  (`probe_value_moved_at`, beside `probe_last_seen`) so that signal can be seen
+  before anything is decided on it: far apart is a radio still reporting while
+  the sensing element has frozen.
+- **Three notifications stopped leaving by the back door**
+  ([#235](https://github.com/never-dry/NeverDry/issues/235)). Low battery, an
+  anomalous deficit, and the notice that the garden needs watering with no valve
+  configured were each raised by hand, with their title and message written in
+  Python. They reached every non-English installation in English, months after
+  the interface was supposed to have stopped doing that - and two of them had a
+  translated template sitting unused, because the code that should have sent it
+  took the short way instead. All three now come from the catalogue, the
+  watering notice down to the per-zone line inside it. The guard that missed
+  them asked who *translates* text; it now also asks who *sends* it, so the next
+  one fails the build rather than reaching a user.
+
 - **A working probe was declared dead for reporting the same number twice**
   ([#252](https://github.com/never-dry/NeverDry/issues/252)). Home Assistant
   writes a sensor's state only when its value changes, so a soil probe sitting on
