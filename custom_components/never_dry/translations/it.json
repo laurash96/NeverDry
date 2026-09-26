@@ -659,10 +659,13 @@
     "notification_irrigation_ineffective_body": "Zona {zone}: l'umidità del suolo non è salita dopo l'ultima irrigazione.",
     "notification_model_drift_title": "Rilevata deriva del modello",
     "notification_model_drift_body": "Zona {zone}: la correlazione fra umidità e modello è scesa a {correlation}.",
-    "notification_water_me_now_title": "Irrigazione manuale consigliata",
-    "notification_water_me_now_body": "Zona {zone}: deficit {deficit} sopra la soglia; innaffia a mano.",
+    "notification_water_me_now_title": "Serve irrigare, e non c'è con cosa",
+    "notification_water_me_now_body": "Il giardino ha bisogno d'acqua:\n\n{zones}\n\nNessuna valvola di irrigazione è configurata. Irriga a mano, oppure aggiungi una valvola nelle impostazioni dell'integrazione.",
     "notification_watchdog_triggered_title": "Valvola chiusa d'autorità dal watchdog di sicurezza",
-    "notification_watchdog_triggered_body": "La valvola della zona {zone} è rimasta aperta per più di {duration_min} min senza ricevere un comando di chiusura. NeverDry l'ha chiusa d'autorità per sicurezza. Verifica che l'automazione o la logica di erogazione funzionino correttamente."
+    "notification_watchdog_triggered_body": "La valvola della zona {zone} è rimasta aperta per più di {duration_min} min senza ricevere un comando di chiusura. NeverDry l'ha chiusa d'autorità per sicurezza. Verifica che l'automazione o la logica di erogazione funzionino correttamente.",
+    "notification_water_me_now_zone_line": "- {zone}: deficit {deficit} mm, {liters} L ({minutes} min)",
+    "notification_deficit_anomaly_title": "Deficit molto oltre la soglia",
+    "notification_deficit_anomaly_body": "Zona {zone}: il deficit di {deficit} mm supera {limit} mm, {multiplier} volte la soglia. L'irrigazione potrebbe non arrivare a questa zona. Controlla la valvola, la programmazione e il registro di Home Assistant."
   },
   "issues": {
     "soil_probe_needs_a_zone": {

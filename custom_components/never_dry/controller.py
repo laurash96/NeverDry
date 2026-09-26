@@ -37,7 +37,6 @@ from .const import (
     DELIVERY_MODE_ESTIMATED_FLOW,
     DELIVERY_MODE_FLOW_METER,
     DELIVERY_MODE_VOLUME_PRESET,
-    DOMAIN,
     EVENT_IRRIGATION_COMPLETE,
     EVENT_VALVE_TEST_COMPLETE,
     FLOW_METER_POLL_INTERVAL_S,
@@ -160,10 +159,6 @@ class IrrigationController:
         self._battery_to_zone: dict[str, str] = {
             zs.battery_sensor: zs.zone_name for zs in zone_sensors if zs.battery_sensor
         }
-        # Track which zones have already been alerted for low battery
-        self._battery_alerted: set[str] = set()
-        # Track which zones have already been alerted for anomalous deficit
-        self._deficit_anomaly_alerted: set[str] = set()
 
     @property
     def is_monitoring_mode(self) -> bool:
@@ -2114,21 +2109,16 @@ class IrrigationController:
 
         zone_name = self._battery_to_zone[entity_id]
 
+        if self._notifier is None:
+            return
+
         if level <= DEFAULT_BATTERY_LOW_THRESHOLD:
-            if zone_name not in self._battery_alerted:
-                self._battery_alerted.add(zone_name)
+            if not self._notifier.is_active(zone_name, NotificationKind.BATTERY_LOW):
                 self._hass.async_create_task(
-                    self._hass.services.async_call(
-                        "persistent_notification",
-                        "create",
-                        {
-                            "title": "Low battery — irrigation valve",
-                            "message": (
-                                f"Zone **{zone_name}**: valve battery at {level:.0f}%. "
-                                f"Replace batteries soon to avoid irrigation failures."
-                            ),
-                            "notification_id": f"{DOMAIN}_battery_{zone_name}",
-                        },
+                    self._notifier.notify(
+                        zone_name,
+                        NotificationKind.BATTERY_LOW,
+                        context={"sensor_name": zone_name, "percent": f"{level:.0f}"},
                     )
                 )
                 _LOGGER.warning(
@@ -2136,9 +2126,12 @@ class IrrigationController:
                     zone_name,
                     level,
                 )
-        else:
-            # Battery recovered (e.g. replaced) — reset alert
-            self._battery_alerted.discard(zone_name)
+        elif self._notifier.is_active(zone_name, NotificationKind.BATTERY_LOW):
+            # Battery recovered, e.g. replaced: withdraw the notice rather than
+            # only forgetting it, so the one on screen goes away too. Scheduled
+            # rather than awaited because this callback is synchronous - it is
+            # a state-change listener.
+            self._hass.async_create_task(self._notifier.clear(zone_name, NotificationKind.BATTERY_LOW))
 
     # ── Deficit anomaly detection ─────────────────────────
 
@@ -2148,27 +2141,23 @@ class IrrigationController:
         Called every 6 hours in all modes. Alerts once per zone until
         the deficit drops back below the anomaly threshold.
         """
+        if self._notifier is None:
+            return
+
         for zs in self._zones.values():
             threshold = zs.extra_state_attributes.get("threshold_mm", DEFAULT_THRESHOLD)
             anomaly_limit = threshold * ANOMALY_DEFICIT_MULTIPLIER
             zone_deficit = zs._zone_deficit
 
             if zone_deficit >= anomaly_limit:
-                if zs.zone_name not in self._deficit_anomaly_alerted:
-                    self._deficit_anomaly_alerted.add(zs.zone_name)
-                    await self._hass.services.async_call(
-                        "persistent_notification",
-                        "create",
-                        {
-                            "title": "Anomalous deficit — possible malfunction",
-                            "message": (
-                                f"Zone **{zs.zone_name}**: deficit {zone_deficit:.1f} mm "
-                                f"exceeds {anomaly_limit:.0f} mm "
-                                f"({ANOMALY_DEFICIT_MULTIPLIER}\u00d7 threshold). "
-                                f"Irrigation may not be working correctly. "
-                                f"Check valve, schedule, and HA logs."
-                            ),
-                            "notification_id": f"{DOMAIN}_anomaly_{zs.zone_name}",
+                if not self._notifier.is_active(zs.zone_name, NotificationKind.DEFICIT_ANOMALY):
+                    await self._notifier.notify(
+                        zs.zone_name,
+                        NotificationKind.DEFICIT_ANOMALY,
+                        context={
+                            "deficit": f"{zone_deficit:.1f}",
+                            "limit": f"{anomaly_limit:.0f}",
+                            "multiplier": ANOMALY_DEFICIT_MULTIPLIER,
                         },
                     )
                     _LOGGER.warning(
@@ -2178,7 +2167,7 @@ class IrrigationController:
                         anomaly_limit,
                     )
             else:
-                self._deficit_anomaly_alerted.discard(zs.zone_name)
+                await self._notifier.clear(zs.zone_name, NotificationKind.DEFICIT_ANOMALY)
 
     # ── Monitoring mode (no valves) ──────────────────────
 
@@ -2187,32 +2176,39 @@ class IrrigationController:
 
         Called every 6 hours when no valves are configured (monitoring mode).
         """
-        zone_lines = []
-        needs_irrigation = False
-        for zs in self._zones.values():
-            zone_deficit = zs._zone_deficit
-            threshold = zs.extra_state_attributes.get("threshold_mm", DEFAULT_THRESHOLD)
-            if zone_deficit >= threshold:
-                needs_irrigation = True
-                zone_lines.append(
-                    f"- **{zs.zone_name}**: deficit {zone_deficit:.1f} mm, "
-                    f"{zs.volume_liters:.0f} L ({zs.duration_s // 60} min)"
-                )
-
-        if not needs_irrigation:
+        if self._notifier is None:
             return
 
-        message = (
-            "Your garden needs watering:\n\n" + "\n".join(zone_lines) + "\n\nNo irrigation valves are configured — "
-            "please water manually or configure valves in the integration settings."
-        )
+        dry = [
+            zs
+            for zs in self._zones.values()
+            if zs._zone_deficit >= zs.extra_state_attributes.get("threshold_mm", DEFAULT_THRESHOLD)
+        ]
+        if not dry:
+            # Nothing dry: withdraw the standing notice rather than leaving a
+            # list of zones that have since been watered.
+            await self._notifier.clear(None, NotificationKind.WATER_ME_NOW)
+            return
 
-        await self._hass.services.async_call(
-            "persistent_notification",
-            "create",
-            {
-                "title": "🌱 Irrigation needed",
-                "message": message,
-                "notification_id": f"{DOMAIN}_irrigation_alert",
-            },
+        # The line comes from the catalogue like the notice around it. Framing a
+        # German notice around an English list is the same defect, one layer in.
+        line = await self._notifier.phrase("water_me_now_zone_line")
+        zone_lines = [
+            line.format(
+                zone=zs.zone_name,
+                deficit=f"{zs._zone_deficit:.1f}",
+                liters=f"{zs.volume_liters:.0f}",
+                minutes=zs.duration_s // 60,
+            )
+            for zs in dry
+        ]
+
+        # No zone of its own: this says the installation has nothing to water
+        # with, so it is one notice about the whole garden rather than one per
+        # dry zone. The context carries the list, so a zone drying out after the
+        # first notice changes it instead of adding a second.
+        await self._notifier.notify(
+            None,
+            NotificationKind.WATER_ME_NOW,
+            context={"zones": "\n".join(zone_lines)},
         )
