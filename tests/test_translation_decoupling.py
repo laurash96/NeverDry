@@ -44,6 +44,9 @@ _COMPONENT = Path(__file__).resolve().parent.parent / "custom_components" / "nev
 # in a modern integration and the only one that actually appears in this codebase.
 _FORBIDDEN = ("strings.json", "translations/", "translations\\", "async_get_translations")
 
+# Raising a notification at all: the delivery half of the same rule.
+_NOTIFICATION_DOMAIN = "persistent_notification"
+
 # The one module allowed to resolve text, for the reason set out at the top of this file.
 _ALLOWED = {"valve_notifier.py"}
 
@@ -64,6 +67,37 @@ def test_no_production_module_reads_translation_files():
         "presentation layer resolve them. If this module genuinely has no later layer to "
         "hand an identifier to, say so at the top of this file and add it to the exception "
         "list, rather than widening the rule quietly:\n  " + "\n  ".join(offenders)
+    )
+
+
+def test_no_module_raises_a_notification_outside_the_notifier():
+    """The other half of the same rule, and the one that was missing.
+
+    The guard above asks who *resolves* text. This one asks who *sends* it, which
+    is where the escape actually happened: three sites called
+    ``persistent_notification.create`` directly with their title and message
+    written as English literals. They resolved nothing, so the guard above had
+    nothing to catch them with, and they reached every non-English installation
+    untranslated for months after the interface was supposed to have stopped
+    doing that.
+
+    Composing the text and delivering it are the same act for a notification -
+    the string handed over *is* the presentation - so the module allowed to do
+    one is the module allowed to do the other, and it is the same single name.
+    """
+    offenders: list[str] = []
+    for module in sorted(_COMPONENT.rglob("*.py")):
+        if "__pycache__" in module.parts or module.name in _ALLOWED:
+            continue
+        source = module.read_text(encoding="utf-8")
+        for line_number, line in enumerate(source.splitlines(), start=1):
+            if _NOTIFICATION_DOMAIN in line:
+                offenders.append(f"{module.relative_to(_COMPONENT)}:{line_number}")
+
+    assert not offenders, (
+        "a notification must go through ValveNotifier, which takes its title and body from "
+        "the catalogue. A direct persistent_notification call carries text written in "
+        "Python, and text written in Python reaches every user in English:\n  " + "\n  ".join(offenders)
     )
 
 
