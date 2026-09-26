@@ -8,7 +8,9 @@ complements `../design_domain_object_model.md` (the map of the domain classes),
 
 **Status: Draft.** Open for comment. §14 tracks the questions this note raised:
 **Q1–Q3 have working answers** (2026-08-21) and the sections above are written
-to match them; **Q4–Q7 are open**, and they are what feedback is most wanted on.
+to match them; **Q4-Q8 are open**, and they are what feedback is most wanted on.
+Q8 is the newest and the most consequential for the interface: it asks whether a
+zone should declare a time at all.
 Nothing is binding while the note is `Draft` — a working answer is still a
 proposal.
 Lifecycle: `Draft → Proposed (open for comment, "RFC") → Accepted ("ADR")`.
@@ -465,6 +467,61 @@ Note the one place memory *is* genuinely required: the deferral counter of §4.
 That is memory about a **zone**, held on the zone — not memory about a queue.
 The scheduler stays stateless either way.
 
+### 10.1 Three places a time can live, and the friction between them
+
+A time can be declared in three places today, and they are not alternatives:
+they are layers, and the layering is where the confusion sits.
+
+| Where | What it means | Who it belongs to |
+|---|---|---|
+| Irrigability windows (§9.1) | when watering is *permitted* | the site |
+| `irrigation_time` on a `SCHEDULED` zone | when *that zone* starts | the zone |
+| no time at all (`REACTIVE`) | when the deficit asks, inside a window | the zone |
+
+A reader setting up a garden meets all three and reasonably concludes that the
+zone's hour is the real one and the rest is background. The field says
+otherwise, and it said so within days of the windows being documented.
+
+**The report that made this concrete.** Eleven zones, every one set to 05:00,
+one watered (GH #270). The installation is doing exactly what it was told and
+the result is indefensible.
+
+Two separate things are wrong, and it is worth not conflating them, because one
+is a missing feature and the other is a promise that cannot be kept.
+
+**The missing part is the queue, and §10 already covers it.** Zones two through
+eleven are not deferred at 05:00, they are *dropped*: the dispatch path returns
+when something is already running, so nothing carries them forward. Driest-first
+recomputation at each tick fixes that with no queue to store.
+
+**The part no queue can fix is the hour itself.** Eleven zones sharing one pipe
+cannot start at 05:00. Not "do not currently", *cannot*: one valve at a time is
+the hydraulic constraint the whole serial policy exists to respect (§8). So a
+per-zone fixed hour is accurate for the first zone and a fiction for the other
+ten, and the fiction is the user's own configuration reflected back at them. The
+interface offered a promise the domain cannot keep, eleven times, and the user
+accepted it eleven times because nothing said otherwise.
+
+**The resolution already exists, one layer up.** Q1 settled what happens when a
+zone's hour falls outside every window: the run is **shifted, not suppressed** -
+it starts *at or after* the configured hour, never before, and the user is told
+the effective time. That decision quietly reclassified `irrigation_time` from a
+**start** into a **lower bound**: not "water at 05:00" but "do not water before
+05:00".
+
+Contention between zones is the same shape of conflict as contention with a
+window, so it takes the same answer: a zone's hour is the earliest moment it may
+begin, and the scheduler starts it at the first admissible moment at or after
+it. Eleven zones at 05:00 then means *"none of these before 05:00"*, which is
+true, satisfiable, and very close to what the user meant. They run in sequence
+from 05:00, ordered driest-first.
+
+The consequence worth stating plainly: **`irrigation_time` stops being a
+promise about when a run begins and becomes a constraint on when it may.** That
+is a smaller thing than it appears - Q1 had already made it true for one class
+of conflict - but it is a change in what the field means, so it must be said in
+the interface, not only here.
+
 ## 11. Cycle & soak: two budgets on one run
 
 `CycleSoakRule` is already placed correctly in the model, and the domain model
@@ -549,8 +606,8 @@ own deferral map has given that up.
 
 The questions this note raised, with the answers reached so far. **Q1–Q3 are
 settled** (2026-08-21) and the sections above have been written to match; **Q6 is
-settled in scope** but not in the form of its override (2026-08-24); **Q4, Q5 and
-Q7 are open**. Feedback on what remains open is what this note is circulated for.
+settled in scope** but not in the form of its override (2026-08-24); **Q4, Q5, Q7
+and Q8 are open**. Feedback on what remains open is what this note is circulated for.
 The numbering is referenced from the sections above.
 
 A settled answer here is still a *proposal* while the note is `Draft` — nothing
@@ -780,6 +837,50 @@ it really is drying. A third option is to keep accumulating but present the
 number as advice rather than as a debt NeverDry intends to repay — which is what
 §9.3 already argues the *alert* should do, and would keep the display and the
 model saying the same thing.
+
+**Q8 - Does a zone declare a time at all? - Open.** *(Raised 2026-09-26 by
+GH #270: eleven zones at 05:00, one watered.)*
+
+§10.1 reclassifies `irrigation_time` from a start into a lower bound, which
+makes the eleven-zone case satisfiable. It does not answer whether the field
+should exist, and that question is now worth asking, because three timing
+mechanisms in one product is a lot to explain and the third one earns its place
+only if it buys something the other two cannot.
+
+**A - The site owns time; the zone declares none.** Windows at site level,
+driest-first ordering inside them, and no per-zone hour. The eleven-zone garden
+becomes one declaration instead of eleven, and no promise is made that the
+hydraulics cannot keep.
+
+*What it costs:* the only way to say *"the vegetable patch in the evening, the
+lawn at dawn"* goes away. That is not an exotic want - shade, crop and foot
+traffic differ across a garden - and a site window cannot express it.
+
+**B - The zone keeps an hour, as a lower bound.** §10.1 as written.
+
+*What it costs:* three mechanisms remain, and the field keeps a name that
+describes what it used to do. Renaming it (*"not before"*) helps and does not
+remove the need to understand all three.
+
+**C - The zone declares a window, not an hour.** The zone's admissible interval
+is intersected with the site's. One concept at two levels instead of two
+concepts, and *"the patch in the evening"* becomes expressible without adding a
+third mechanism. An empty intersection is a warning, exactly as Q1 already
+prescribes for an hour outside every window.
+
+*What it costs:* a migration from `irrigation_time`, and a form that asks for
+two values where it asked for one.
+
+**The criterion, stated so the decision is not made on taste.** A per-zone time
+earns its keep only if a garden needs zones watered in *different parts of the
+day*. If the real want is only *"not before dawn"* - one time for the whole
+garden - then A is strictly better and the field is a liability. That is a
+question about gardens, not about code, and the thread in GH #270 is where to
+ask it: the reporter has eleven zones and a reason for the hour he chose.
+
+Note that A and C both keep the vocabulary at one word, *window*, which is worth
+something on its own: §10.1 exists because two words for two nearly-identical
+things sent a user to configure eleven of the wrong one.
 
 ## 15. Consequences for the domain model
 
