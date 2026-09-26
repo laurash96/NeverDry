@@ -42,6 +42,10 @@ REFRESH = re.compile(r'<meta http-equiv="refresh"', re.IGNORECASE)
 LOC = re.compile(r"<loc>([^<]+)</loc>")
 LANG_ENTRY = re.compile(r"\{\s*code:\s*'([^']+)',\s*name:\s*'([^']*)'\s*\}")
 PLACEHOLDER = re.compile(r"\{\{[A-Z_]+\}\}")
+TEXT_ELEMENT = re.compile(r"<(h1|h2|h3|p)\b[^>]*>(.*?)</\1>", re.S)
+TAGS = re.compile(r"<[^>]+>")
+# Shorter than this, an identical string is more often a name than an omission.
+MIN_TRANSLATABLE = 25
 
 
 class Report:
@@ -235,6 +239,45 @@ def check_languages(languages: dict[str, str], report: Report) -> None:
             report.fail("languages.js", f"{directory.name}/ is published but not declared: nothing links to it")
 
 
+def visible_texts(html: str) -> list[str]:
+    """The headings and paragraphs a reader actually sees, stripped of markup."""
+    found = []
+    for match in TEXT_ELEMENT.finditer(html):
+        text = re.sub(r"\\s+", " ", TAGS.sub("", match.group(2))).strip()
+        if len(text) >= MIN_TRANSLATABLE:
+            found.append(text)
+    return found
+
+
+def check_untranslated_text(languages: dict[str, str], report: Report) -> None:
+    """Refuse a translated page that still carries English prose.
+
+    A section added to the English page after the last translation pass does not
+    break anything: it renders, it validates, every other check here stays green,
+    and it reads as English in the middle of a German page. That is exactly how
+    the Zone Card section sat untranslated in eight languages at once, found by a
+    reader rather than by a check.
+
+    Identity with the English page is the signal. A translator can legitimately
+    leave a product name or a short label alone, so only prose of some length
+    counts: below that threshold the match is more likely a coincidence than an
+    omission.
+    """
+    english = set(visible_texts((PAGES / "index.html").read_text(encoding="utf-8")))
+    for code in sorted(languages):
+        if code == "en":
+            continue
+        page = PAGES / code / "index.html"
+        if not page.exists():
+            continue
+        text = page.read_text(encoding="utf-8")
+        if is_redirect(text):
+            continue
+        for shared in visible_texts(text):
+            if shared in english:
+                report.fail(page, f'still in English: "{shared[:60]}..."')
+
+
 def main() -> int:
     report = Report()
     languages = declared_languages()
@@ -243,6 +286,7 @@ def main() -> int:
     for page in sorted(PAGES.rglob("*.html")):
         check_page(page, page.read_text(encoding="utf-8"), languages, report)
 
+    check_untranslated_text(languages, report)
     check_sitemap(languages, report)
     check_shipped_files(report)
 
