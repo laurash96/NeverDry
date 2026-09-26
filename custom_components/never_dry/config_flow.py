@@ -218,7 +218,10 @@ def _alpha_selector() -> selector.NumberSelector:
         unit_of_measurement="mm/°C/day",
     )
     try:
-        return selector.NumberSelector({**config, "translation_key": "et_coefficient"})
+        # The catalogue is keyed by unit and Hassfest only accepts a slug there.
+        return selector.NumberSelector(
+            {**config, "unit_of_measurement": "mm_per_celsius_per_day", "translation_key": "et_coefficient"}
+        )
     except vol.Invalid:
         # Home Assistant before 2025.8 rejects translation_key on a number selector.
         return selector.NumberSelector(config)

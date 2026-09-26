@@ -402,7 +402,7 @@
     },
     "et_coefficient": {
       "unit_of_measurement": {
-        "mm/°C/day": "mm/°C/giorno"
+        "mm_per_celsius_per_day": "mm/°C/giorno"
       }
     },
     "soil_type": {
