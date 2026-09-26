@@ -58,6 +58,10 @@ class NotificationKind(StrEnum):
     MODEL_DRIFT = "model_drift"
     WATER_ME_NOW = "water_me_now"
     WATCHDOG_TRIGGERED = "watchdog_triggered"
+    # A deficit far past where irrigation should have brought it back.
+    # Not a fault of its own: the symptom of one further upstream, which
+    # is why it says to go and look rather than naming a cause.
+    DEFICIT_ANOMALY = "deficit_anomaly"
 
 
 class Severity(StrEnum):
@@ -142,7 +146,7 @@ class ValveNotifier:
 
     async def notify(
         self,
-        zone: str,
+        zone: str | None,
         kind: NotificationKind,
         severity: Severity = Severity.WARNING,
         context: dict | None = None,
@@ -152,9 +156,17 @@ class ValveNotifier:
         Returns ``True`` when the call created or updated a notification,
         ``False`` when the call was deduplicated (same zone, kind and
         context as the currently active one).
+
+        ``zone`` is ``None`` for a condition that belongs to the installation
+        rather than to one patch of ground - nothing is configured to water
+        with, say. Such a notice is about the whole garden, so there is one of
+        it: the dedup key and the notification id both collapse to a single
+        entry instead of one per zone, which is what makes a second call
+        replace the first rather than pile up beside it.
         """
         ctx = dict(context or {})
-        ctx.setdefault("zone", zone)
+        if zone is not None:
+            ctx.setdefault("zone", zone)
         title_text, body_text = await _resolve(self._hass, kind)
         try:
             message = body_text.format(**ctx)
@@ -195,7 +207,23 @@ class ValveNotifier:
         )
         return True
 
-    async def clear(self, zone: str, kind: NotificationKind) -> bool:
+    async def phrase(self, name: str) -> str:
+        """One catalogue string by name, for text a caller must assemble itself.
+
+        The manual-watering notice carries a line per dry zone, and those lines
+        are built where the zones are known rather than here. Built in code they
+        would be text no translator ever sees - the notice framed in German
+        around an English list, which is the defect this whole class exists to
+        stop. So the line is a catalogue entry too, and the caller asks for it
+        by name.
+
+        Returns the empty string for a name the catalogue does not carry, which
+        a caller can see and fall back from.
+        """
+        resources = await async_get_translations(self._hass, self._hass.config.language, "common", {DOMAIN})
+        return resources.get(f"{_TEXT_PREFIX}{name}", "")
+
+    async def clear(self, zone: str | None, kind: NotificationKind) -> bool:
         """Dismiss the notification for ``(zone, kind)``.
 
         Returns ``True`` when something was dismissed, ``False`` when no
@@ -230,7 +258,7 @@ class ValveNotifier:
             await self.clear(zone, kind)
         return len(keys)
 
-    def is_active(self, zone: str, kind: NotificationKind) -> bool:
+    def is_active(self, zone: str | None, kind: NotificationKind) -> bool:
         """Return ``True`` if a notification is currently active for ``(zone, kind)``."""
         return (zone, kind) in self._active
 
@@ -241,7 +269,11 @@ class ValveNotifier:
     # ── Internals ────────────────────────────────────────────────────
 
     @classmethod
-    def _notification_id(cls, zone: str, kind: NotificationKind) -> str:
-        """Build a deterministic notification id for ``(zone, kind)``."""
-        safe_zone = re.sub(r"\W+", "_", zone.strip().lower()).strip("_") or "global"
+    def _notification_id(cls, zone: str | None, kind: NotificationKind) -> str:
+        """Build a deterministic notification id for ``(zone, kind)``.
+
+        ``None`` and a zone whose name is all punctuation land on the same
+        ``global`` id, which is correct for both: neither names a zone.
+        """
+        safe_zone = re.sub(r"\W+", "_", (zone or "").strip().lower()).strip("_") or "global"
         return f"{cls._ID_PREFIX}_{safe_zone}_{kind.value}"

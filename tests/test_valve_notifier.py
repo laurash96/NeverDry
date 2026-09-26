@@ -241,6 +241,35 @@ async def test_every_kind_resolves_to_text(hass):
         assert body, f"{kind.value}: no body in the catalogue"
 
 
+async def test_the_assembled_line_matches_what_the_caller_fills_in(notifier, hass):
+    """The manual-watering notice is a frame plus a line per dry zone.
+
+    The frame comes from the catalogue through ``notify``; the line comes from
+    here, because it is repeated once per zone and only the caller knows the
+    zones. That split is where it can break quietly: the template and the code
+    that fills it live in different files, so a placeholder renamed on one side
+    leaves the other formatting a name that is not there. The notice then goes
+    out with the raw template in place of the list, and every test that only
+    checks "a notification was sent" still passes.
+    """
+    hass.config.language = "en"
+
+    line = await notifier.phrase("water_me_now_zone_line")
+
+    assert line, "the line the manual-watering notice is built from is not in the catalogue"
+    for placeholder in ("{zone}", "{deficit}", "{liters}", "{minutes}"):
+        assert placeholder in line, f"the caller fills in {placeholder}, and the template does not ask for it"
+    # Filled with what the controller actually supplies, nothing is left over.
+    assert "{" not in line.format(zone="Orto", deficit="12.4", liters="48", minutes=22)
+
+
+async def test_a_fragment_the_catalogue_does_not_carry_comes_back_empty(notifier, hass):
+    """Empty rather than the raw name: a caller can see it and fall back."""
+    hass.config.language = "en"
+
+    assert await notifier.phrase("no_such_fragment") == ""
+
+
 @pytest.mark.parametrize(
     ("kind", "context"),
     [
